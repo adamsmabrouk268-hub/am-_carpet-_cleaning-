@@ -1,0 +1,6 @@
+{
+  "name": "A&M Carpet Cleaning",
+  "description": "A&M Carpet Cleaning booking platform with instant quotes, real-time slot scheduling, and appointment management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
