@@ -19,7 +19,9 @@ import {
   UserCheck,
   Check,
   Ban,
-  KeyRound
+  KeyRound,
+  DollarSign,
+  Tag
 } from 'lucide-react';
 import { Booking, BookingStatus } from '../types';
 import {
@@ -31,6 +33,7 @@ import {
   denyBooking
 } from '../utils/bookingStorage';
 import { AppointmentManagement } from './AppointmentManagement';
+import AdminServicesManager from './AdminServicesManager';
 
 interface AdminPanelSectionProps {
   bookings: Booking[];
@@ -49,7 +52,7 @@ export default function AdminPanelSection({
   onLogout,
   adminEmail = 'adminProClean@gmail.com'
 }: AdminPanelSectionProps) {
-  const [activeSectionTab, setActiveSectionTab] = useState<'calendar' | 'stream'>('calendar');
+  const [activeSectionTab, setActiveSectionTab] = useState<'calendar' | 'stream' | 'pricing'>('calendar');
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // Quick stats
@@ -122,6 +125,19 @@ export default function AdminPanelSection({
               <LayoutDashboard className="w-4 h-4" />
               <span>Launch Fullscreen Dashboard</span>
               <ExternalLink className="w-3.5 h-3.5 text-blue-200" />
+            </button>
+
+            <button
+              onClick={() => setActiveSectionTab('pricing')}
+              className={`border px-3.5 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-1.5 cursor-pointer ${
+                activeSectionTab === 'pricing'
+                  ? 'bg-emerald-600 text-white border-emerald-500 shadow-md'
+                  : 'bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 hover:text-emerald-100 border-emerald-800/80'
+              }`}
+              title="Edit service prices & rates directly"
+            >
+              <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Edit Service Prices</span>
             </button>
 
             <button
@@ -225,6 +241,18 @@ export default function AdminPanelSection({
           >
             <Clock className="w-4 h-4 text-sky-300" />
             <span>Recent Work Orders Stream</span>
+          </button>
+
+          <button
+            onClick={() => setActiveSectionTab('pricing')}
+            className={`px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer ${
+              activeSectionTab === 'pricing'
+                ? 'bg-emerald-600 text-white shadow-lg ring-2 ring-emerald-400/30'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+            }`}
+          >
+            <DollarSign className="w-4 h-4 text-emerald-400" />
+            <span>Edit Service Prices & Rates 💵</span>
           </button>
         </div>
 
@@ -361,6 +389,13 @@ export default function AdminPanelSection({
                 <ExternalLink className="w-3 h-3" />
               </button>
             </div>
+          </div>
+        )}
+
+        {/* TAB 3: EDIT SERVICE PRICES & RATES */}
+        {activeSectionTab === 'pricing' && (
+          <div className="bg-white rounded-3xl p-4 sm:p-6 text-slate-800 shadow-2xl border border-slate-700/60">
+            <AdminServicesManager />
           </div>
         )}
       </div>

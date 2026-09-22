@@ -4,9 +4,9 @@ import {
   Armchair,
   Sofa,
   BedDouble,
-  Droplets,
   Layers,
   Car,
+  Paintbrush,
   Check,
   ArrowRight,
   ShieldCheck
@@ -110,26 +110,6 @@ export default function ServicesCatalog({ onSelectService }: ServicesCatalogProp
       matchedServiceId: 'mattress_clean'
     },
     {
-      id: 'water_string_treatment',
-      category: 'water_treatment' as ServiceCategory,
-      categoryLabel: 'Water / String Treatment',
-      name: 'Water / String Treatment',
-      icon: Droplets,
-      price: '$85',
-      unit: 'per affected zone / emergency',
-      tag: 'Restoration',
-      description:
-        'High-capacity water extraction, flood and spill mitigation, water ring removal, tack string restoration, and anti-mildew drying.',
-      features: [
-        'Emergency standing moisture extraction',
-        'Water stain & carpet string line remediation',
-        'Sub-surface pad moisture assessment',
-        'Antimicrobial mold & mildew barrier'
-      ],
-      popular: true,
-      matchedServiceId: 'water_string_treatment'
-    },
-    {
       id: 'area_rug',
       category: 'area_rug' as ServiceCategory,
       categoryLabel: 'Area Rug Cleaning',
@@ -166,12 +146,41 @@ export default function ServicesCatalog({ onSelectService }: ServicesCatalogProp
         'Flexible business & weekend dispatch hours'
       ],
       matchedServiceId: 'car_interior'
+    },
+    {
+      id: 'interior_room_painting',
+      category: 'painting' as ServiceCategory,
+      categoryLabel: 'Painting Services',
+      name: 'Interior & Wall Painting',
+      icon: Paintbrush,
+      price: '$180',
+      unit: 'standard room (up to 12x14)',
+      tag: 'Precision Coating',
+      description:
+        'Professional interior wall prep, edge taping, nail hole spackling, smooth primer, and clean 2-coat latex finish for rooms, accents, and trims.',
+      features: [
+        'Full 2-coat wall, ceiling, and trim painting',
+        'Nail hole spackling & crack feather sanding',
+        'Drop cloths & complete furniture protection',
+        'Ultra-clean crisp border lines & zero mess'
+      ],
+      popular: true,
+      matchedServiceId: 'interior_room_painting'
     }
   ];
 
   // Merge custom services added by admin that are not in baseCatalogItems
   const catalogItems = useMemo(() => {
     const baseIds = new Set(baseCatalogItems.map((b) => b.id));
+    const dynamicBaseItems = baseCatalogItems.map((item) => {
+      const match = storedCatalog.find((s) => s.id === item.matchedServiceId || s.id === item.id);
+      return {
+        ...item,
+        price: match ? `$${match.basePrice}` : item.price,
+        unit: match ? match.unit : item.unit
+      };
+    });
+
     const customCards = storedCatalog
       .filter((s) => !baseIds.has(s.id))
       .map((s) => ({
@@ -193,7 +202,7 @@ export default function ServicesCatalog({ onSelectService }: ServicesCatalogProp
         matchedServiceId: s.id
       }));
 
-    return [...baseCatalogItems, ...customCards];
+    return [...dynamicBaseItems, ...customCards];
   }, [storedCatalog]);
 
   const categoriesList = [
@@ -202,8 +211,8 @@ export default function ServicesCatalog({ onSelectService }: ServicesCatalogProp
     { id: 'upholstery', label: 'Upholstery Cleaning' },
     { id: 'couch_sofa', label: 'Couch & Sofa Cleaning' },
     { id: 'mattress', label: 'Mattress Cleaning' },
-    { id: 'water_treatment', label: 'Water / String Treatment' },
     { id: 'area_rug', label: 'Area Rug Cleaning' },
+    { id: 'painting', label: 'Painting Services' },
     { id: 'other', label: 'Other Services' }
   ];
 
@@ -227,14 +236,14 @@ export default function ServicesCatalog({ onSelectService }: ServicesCatalogProp
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-1.5 text-blue-600 font-bold text-xs uppercase tracking-wider bg-blue-100/60 px-3 py-1 rounded-full mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Our Cleaning Services</span>
+            <span>Our Cleaning & Painting Services</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-            Professional Cleaning Services Built for Results
+            Professional Cleaning & Painting Services Built for Results
           </h2>
           <p className="text-slate-600 text-base leading-relaxed">
-            From deep carpet steam extraction and couch revitalizing to water / string restoration and mattress sanitization.
-            All powered by 230°F commercial extraction and 100% child- & pet-safe solutions.
+            From deep carpet steam extraction and couch revitalizing to delicate area rugs, mattress sanitization, and precision interior painting.
+            All executed with commercial equipment, premium non-toxic materials, and 100% satisfaction guarantee.
           </p>
 
           {/* Category Filter Pills */}

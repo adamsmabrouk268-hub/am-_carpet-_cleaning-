@@ -26,7 +26,8 @@ import {
   Info,
   MessageCircle
 } from 'lucide-react';
-import { SERVICES, ADD_ONS, TIME_SLOTS } from '../data/initialData';
+import { ADD_ONS, TIME_SLOTS } from '../data/initialData';
+import { getStoredServicesCatalog, DATA_CHANGED_EVENT } from '../utils/adminStorage';
 import { BUSINESS_OWNER_CONTACT } from '../utils/contactConfig';
 import {
   Booking,
@@ -35,7 +36,8 @@ import {
   PropertyType,
   ParkingAccess,
   PaymentMethodType,
-  PaymentRecord
+  PaymentRecord,
+  ServiceItem
 } from '../types';
 import { addBooking, downloadCalendarInvite } from '../utils/bookingStorage';
 import PaymentReceiptModal from './PaymentReceiptModal';
@@ -71,8 +73,23 @@ export default function BookingModal({
 
   // Form State
   const [serviceCategory, setServiceCategory] = useState<string>('all');
+  const [servicesList, setServicesList] = useState<ServiceItem[]>(() => getStoredServicesCatalog());
   const [quantities, setQuantities] = useState<{ [id: string]: number }>({});
   const [selectedAddOns, setSelectedAddOns] = useState<{ [id: string]: boolean }>({});
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setServicesList(getStoredServicesCatalog());
+    };
+    window.addEventListener(DATA_CHANGED_EVENT, handleUpdate);
+    return () => window.removeEventListener(DATA_CHANGED_EVENT, handleUpdate);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      setServicesList(getStoredServicesCatalog());
+    }
+  }, [isOpen]);
 
   // Date & Slot
   const tomorrow = new Date();
@@ -88,9 +105,9 @@ export default function BookingModal({
   const [email, setEmail] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [aptUnit, setAptUnit] = useState('');
-  const [city, setCity] = useState(initialCity || 'Houston');
-  const [state, setState] = useState(initialState || 'TX');
-  const [zipCode, setZipCode] = useState(initialZip || '77001');
+  const [city, setCity] = useState(initialCity || 'Federal Way');
+  const [state, setState] = useState(initialState || 'WA');
+  const [zipCode, setZipCode] = useState(initialZip || '98003');
   const [propertyType, setPropertyType] = useState<PropertyType>('single_family');
   const [hasPets, setHasPets] = useState(false);
   const [petDetails, setPetDetails] = useState('');
@@ -161,14 +178,14 @@ export default function BookingModal({
   if (!isOpen) return null;
 
   // Filter services by category
-  const filteredServices = SERVICES.filter((s) => {
+  const filteredServices = servicesList.filter((s) => {
     if (serviceCategory === 'all') return true;
     if (serviceCategory === 'carpet') return s.category === 'carpet';
     if (serviceCategory === 'couch_sofa') return s.id.includes('sofa') || s.id.includes('couch');
     if (serviceCategory === 'mattress') return s.id.includes('mattress');
-    if (serviceCategory === 'water_treatment') return s.id.includes('water') || s.id.includes('string');
     if (serviceCategory === 'upholstery') return s.category === 'upholstery' && !s.id.includes('sofa') && !s.id.includes('mattress');
     if (serviceCategory === 'area_rug') return s.category === 'area_rug';
+    if (serviceCategory === 'painting') return s.category === 'painting';
     if (serviceCategory === 'other') return s.category === 'other';
     return true;
   });
@@ -177,7 +194,7 @@ export default function BookingModal({
   const bookedServices: BookedServiceItem[] = [];
   let subtotal = 0;
 
-  SERVICES.forEach((service) => {
+  servicesList.forEach((service) => {
     const qty = quantities[service.id] || 0;
     if (qty > 0) {
       const itemTotal = qty * service.basePrice;
@@ -264,8 +281,8 @@ export default function BookingModal({
         email: email.trim().toLowerCase(),
         streetAddress: streetAddress.trim(),
         aptUnit: aptUnit.trim() || undefined,
-        city: city.trim() || 'Houston',
-        state: state.trim() || 'TX',
+        city: city.trim() || 'Federal Way',
+        state: state.trim() || 'WA',
         zipCode: zipCode.trim(),
         propertyType,
         hasPets,
@@ -668,9 +685,9 @@ export default function BookingModal({
                       { id: 'carpet', label: 'Carpet Cleaning' },
                       { id: 'couch_sofa', label: 'Sofa / Couch' },
                       { id: 'mattress', label: 'Mattress' },
-                      { id: 'water_treatment', label: 'Water / Extraction' },
                       { id: 'upholstery', label: 'Upholstery' },
                       { id: 'area_rug', label: 'Area Rugs' },
+                      { id: 'painting', label: 'Painting' },
                       { id: 'other', label: 'Others' }
                     ].map((cat) => (
                       <button
@@ -1256,7 +1273,7 @@ export default function BookingModal({
                     <div className="flex flex-wrap gap-2 pt-1 font-semibold text-[11px]">
                       <span className="bg-white px-2.5 py-1 rounded-lg border border-amber-200">💵 Exact Cash</span>
                       <span className="bg-white px-2.5 py-1 rounded-lg border border-amber-200">💳 Wireless Card Chip/Tap Reader</span>
-                      <span className="bg-white px-2.5 py-1 rounded-lg border border-amber-200">📝 Check to "A&M Carpet Cleaning"</span>
+                      <span className="bg-white px-2.5 py-1 rounded-lg border border-amber-200">📝 Check to "A&M Carpet Cleaning & Painting"</span>
                     </div>
                   </div>
                 )}
@@ -1476,7 +1493,7 @@ export default function BookingModal({
             <div className="space-y-3 text-xs">
               <div className="flex justify-between py-1 border-b border-neutral-800 text-neutral-400">
                 <span>MERCHANT</span>
-                <span className="text-white font-bold">A&M Carpet Cleaning</span>
+                <span className="text-white font-bold">A&M Carpet Cleaning & Painting</span>
               </div>
               <div className="flex justify-between py-1 border-b border-neutral-800 text-neutral-400">
                 <span>CARD</span>
@@ -1562,7 +1579,7 @@ export default function BookingModal({
 
               <div className="flex justify-between py-1 text-slate-600 border-b border-slate-100">
                 <span>Payee</span>
-                <span className="font-bold text-slate-800">A&M Carpet Cleaning LLC</span>
+                <span className="font-bold text-slate-800">A&M Carpet Cleaning & Painting LLC</span>
               </div>
 
               <div className="flex justify-between py-2 items-center text-sm font-bold">

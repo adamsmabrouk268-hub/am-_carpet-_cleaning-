@@ -92,19 +92,7 @@ export const SERVICES: ServiceItem[] = [
     description: 'Deep anti-dust mite steam extraction, allergen sanitization, and rapid dry treatment.'
   },
 
-  // 5. Water / String Treatment
-  {
-    id: 'water_string_treatment',
-    name: 'Water & String / Stain Treatment',
-    category: 'water_treatment',
-    basePrice: 85,
-    unit: 'per affected zone',
-    icon: 'Droplets',
-    description: 'Emergency water extraction, water ring / string stain restoration, moisture removal, and anti-mildew treatment.',
-    popular: true
-  },
-
-  // 6. Area Rug Cleaning
+  // 5. Area Rug Cleaning
   {
     id: 'area_rug',
     name: 'Area Rug Cleaning (Wool, Persian & Synthetic)',
@@ -122,6 +110,54 @@ export const SERVICES: ServiceItem[] = [
     unit: 'large rug (up to 10x14)',
     icon: 'Layers',
     description: 'Specialized low-moisture restorative bath for oversized, antique, or delicate silk rugs.'
+  },
+
+  // 6. Painting Services
+  {
+    id: 'interior_room_painting',
+    name: 'Interior Room Painting (Walls & Prep)',
+    category: 'painting',
+    basePrice: 180,
+    unit: 'standard room (up to 12x14)',
+    icon: 'Paintbrush',
+    description: 'Full 2-coat interior wall painting including furniture protection, hole patching, light sanding, edge taping, and clean finish.',
+    popular: true
+  },
+  {
+    id: 'accent_wall_painting',
+    name: 'Accent & Feature Wall Painting',
+    category: 'painting',
+    basePrice: 95,
+    unit: 'single accent wall',
+    icon: 'Palette',
+    description: 'Precision designer accent wall painting with sharp clean lines, uniform coverage, and vibrant high-end finish.'
+  },
+  {
+    id: 'trim_baseboard_painting',
+    name: 'Trim, Baseboards & Door Painting',
+    category: 'painting',
+    basePrice: 65,
+    unit: 'room baseboards or 2 doors',
+    icon: 'PaintRoller',
+    description: 'Detailed semi-gloss or enamel application on baseboards, door frames, mouldings, and interior passage doors.'
+  },
+  {
+    id: 'cabinet_painting',
+    name: 'Cabinet & Vanity Painting / Refinishing',
+    category: 'painting',
+    basePrice: 220,
+    unit: 'cabinet bank or vanity',
+    icon: 'Paintbrush',
+    description: 'Degreasing, scuff sanding, bonding primer, and durable smooth factory-look spray or roller finish.'
+  },
+  {
+    id: 'exterior_trim_painting',
+    name: 'Exterior Trim & Porch Touch-Up Painting',
+    category: 'painting',
+    basePrice: 150,
+    unit: 'porch or exterior section',
+    icon: 'PaintRoller',
+    description: 'Weather-resistant acrylic latex application on exterior window frames, porch columns, railings, and eaves.'
   },
 
   // 7. Other Services ("en others")
@@ -169,6 +205,18 @@ export const ADD_ONS: AddOnItem[] = [
     name: 'Citrus Fresh Anti-Allergen Sanitizer',
     price: 20,
     description: 'Organic botanical disinfectant leaving a subtle natural clean citrus aroma.'
+  },
+  {
+    id: 'drywall_patch_prep',
+    name: 'Drywall Hole & Cracks Repair (Heavy Prep)',
+    price: 40,
+    description: 'Deep spackling, mesh taping, drywall mud skim coat, and seamless feather-sanding before painting.'
+  },
+  {
+    id: 'primer_stain_block',
+    name: 'Heavy Stain-Blocking Primer Coat',
+    price: 35,
+    description: 'High-adhesion shellac or oil primer locking in water stains, grease, or smoke marks.'
   }
 ];
 
@@ -218,191 +266,90 @@ export interface StateCoverage {
 
 export const STATES_DATA: StateCoverage[] = [
   {
-    stateCode: 'TX',
-    stateName: 'Texas',
+    stateCode: 'WA',
+    stateName: 'Washington',
     cities: [
       {
-        cityName: 'Houston',
-        zips: ['77001', '77002', '77007', '77019', '77024', '77056', '77079', '77098'],
-        popularZips: ['77001', '77002', '77024', '77056'],
-        description: 'Downtown, Midtown, Galleria, River Oaks, Memorial & Katy corridor'
+        cityName: 'Federal Way',
+        zips: ['98003', '98023', '98001', '98063', '98093'],
+        popularZips: ['98003', '98023'],
+        description: 'Downtown Federal Way, Twin Lakes, Campus, Steel Lake, Mirror Lake & Redondo Beach'
       },
       {
-        cityName: 'Dallas',
-        zips: ['75001', '75201', '75204', '75205', '75219', '75225', '75024'],
-        popularZips: ['75001', '75201', '75205'],
-        description: 'Downtown Arts District, Highland Park, Uptown, North Dallas & Plano'
+        cityName: 'Everett',
+        zips: ['98201', '98203', '98204', '98208', '98207'],
+        popularZips: ['98201', '98208'],
+        description: 'Port Gardner, Silver Lake, Harborview, Cascade View & Snohomish River corridor'
       },
       {
-        cityName: 'Austin',
-        zips: ['78701', '78703', '78704', '78746', '78759'],
-        popularZips: ['78701', '78704'],
-        description: 'Downtown Austin, South Congress, Westlake & Arboretum'
+        cityName: 'Renton',
+        zips: ['98055', '98056', '98057', '98058', '98059'],
+        popularZips: ['98055', '98056', '98058'],
+        description: 'Downtown Renton, The Landing, Renton Highlands, Kennydale & Fairwood'
       },
       {
-        cityName: 'San Antonio',
-        zips: ['78201', '78209', '78216', '78258'],
-        popularZips: ['78201', '78209'],
-        description: 'Downtown River Walk, Alamo Heights & Stone Oak'
+        cityName: 'Kent',
+        zips: ['98030', '98031', '98032', '98042', '98064'],
+        popularZips: ['98030', '98031', '98032'],
+        description: 'Kent East Hill, West Hill, Kent Valley, Panther Lake & Lake Meridian'
       },
       {
-        cityName: 'Fort Worth',
-        zips: ['76102', '76107', '76109', '76132'],
-        popularZips: ['76102', '76107'],
-        description: 'Sundance Square, Cultural District & TCU area'
-      }
-    ]
-  },
-  {
-    stateCode: 'FL',
-    stateName: 'Florida',
-    cities: [
-      {
-        cityName: 'Orlando',
-        zips: ['32801', '32819', '32836', '32803'],
-        popularZips: ['32801', '32819'],
-        description: 'Downtown Orlando, Dr. Phillips & Lake Nona'
+        cityName: 'Redmond',
+        zips: ['98052', '98053', '98073', '98074'],
+        popularZips: ['98052', '98053'],
+        description: 'Downtown Redmond, Marymoor Park, Education Hill, Overlake & Grass Lawn'
       },
       {
-        cityName: 'Miami',
-        zips: ['33101', '33131', '33139', '33140'],
-        popularZips: ['33101', '33131'],
-        description: 'Brickell, Downtown Miami & South Beach'
-      },
-      {
-        cityName: 'Tampa',
-        zips: ['33602', '33606', '33609', '33629'],
-        popularZips: ['33602', '33606'],
-        description: 'Channelside, Hyde Park & South Tampa'
-      }
-    ]
-  },
-  {
-    stateCode: 'CA',
-    stateName: 'California',
-    cities: [
-      {
-        cityName: 'Los Angeles',
-        zips: ['90001', '90028', '90210', '90046', '90049'],
-        popularZips: ['90001', '90028', '90210'],
-        description: 'Beverly Hills, Hollywood, West LA & Brentwood'
-      },
-      {
-        cityName: 'Orange County',
-        zips: ['92660', '92626', '92648', '92651'],
-        popularZips: ['92660', '92626'],
-        description: 'Newport Beach, Irvine & Huntington Beach'
-      },
-      {
-        cityName: 'San Diego',
-        zips: ['92101', '92109', '92130'],
-        popularZips: ['92101'],
-        description: 'Gaslamp Quarter, Pacific Beach & La Jolla'
-      }
-    ]
-  },
-  {
-    stateCode: 'GA',
-    stateName: 'Georgia',
-    cities: [
-      {
-        cityName: 'Atlanta',
-        zips: ['30301', '30309', '30328', '30305', '30326'],
-        popularZips: ['30301', '30309', '30328'],
-        description: 'Buckhead, Midtown, Downtown & Sandy Springs'
-      }
-    ]
-  },
-  {
-    stateCode: 'IL',
-    stateName: 'Illinois',
-    cities: [
-      {
-        cityName: 'Chicago',
-        zips: ['60601', '60611', '60614', '60654', '60618'],
-        popularZips: ['60601', '60611'],
-        description: 'The Loop, Magnificent Mile, Lincoln Park & River North'
+        cityName: 'Bellevue',
+        zips: ['98004', '98005', '98006', '98007', '98008'],
+        popularZips: ['98004', '98006', '98007'],
+        description: 'Downtown Bellevue, West Bellevue, Crossroads, Factoria, Newport Hills & Somerset'
       }
     ]
   }
 ];
 
 export const SERVICED_ZIPS: { [zip: string]: { city: string; state: string; area: string } } = {
-  // Texas - Houston
-  '77001': { city: 'Houston', state: 'TX', area: 'Downtown & Inner Loop' },
-  '77002': { city: 'Houston', state: 'TX', area: 'Midtown & Montrose' },
-  '77007': { city: 'Houston', state: 'TX', area: 'Washington Corridor & Heights' },
-  '77019': { city: 'Houston', state: 'TX', area: 'River Oaks & Montrose' },
-  '77024': { city: 'Houston', state: 'TX', area: 'Memorial & Spring Branch' },
-  '77056': { city: 'Houston', state: 'TX', area: 'Galleria & Uptown' },
-  '77079': { city: 'Houston', state: 'TX', area: 'Energy Corridor' },
-  '77098': { city: 'Houston', state: 'TX', area: 'Upper Kirby & West University' },
+  // Washington - Federal Way
+  '98003': { city: 'Federal Way', state: 'WA', area: 'Downtown & Commons' },
+  '98023': { city: 'Federal Way', state: 'WA', area: 'Twin Lakes & Redondo' },
+  '98001': { city: 'Federal Way', state: 'WA', area: 'North Federal Way & Algona' },
+  '98063': { city: 'Federal Way', state: 'WA', area: 'Campus & Steel Lake' },
+  '98093': { city: 'Federal Way', state: 'WA', area: 'Mirror Lake Hub' },
 
-  // Texas - Dallas
-  '75001': { city: 'Dallas', state: 'TX', area: 'North Dallas / Addison' },
-  '75201': { city: 'Dallas', state: 'TX', area: 'Downtown / Arts District' },
-  '75204': { city: 'Dallas', state: 'TX', area: 'Uptown / West Village' },
-  '75205': { city: 'Dallas', state: 'TX', area: 'Highland Park / SMU' },
-  '75219': { city: 'Dallas', state: 'TX', area: 'Oak Lawn / Turtle Creek' },
-  '75225': { city: 'Dallas', state: 'TX', area: 'University Park' },
-  '75024': { city: 'Dallas', state: 'TX', area: 'Plano / Legacy West' },
+  // Washington - Everett
+  '98201': { city: 'Everett', state: 'WA', area: 'Downtown Everett & Port Gardner' },
+  '98203': { city: 'Everett', state: 'WA', area: 'Lowell & Beverly Park' },
+  '98204': { city: 'Everett', state: 'WA', area: 'Paine Field & West Everett' },
+  '98208': { city: 'Everett', state: 'WA', area: 'Silver Lake & Mill Creek Border' },
+  '98207': { city: 'Everett', state: 'WA', area: 'Cascade View & Valley' },
 
-  // Texas - Austin & San Antonio & Fort Worth
-  '78701': { city: 'Austin', state: 'TX', area: 'Downtown Austin' },
-  '78703': { city: 'Austin', state: 'TX', area: 'Tarrytown & Clarksville' },
-  '78704': { city: 'Austin', state: 'TX', area: 'South Congress / Barton' },
-  '78746': { city: 'Austin', state: 'TX', area: 'Westlake Hills' },
-  '78759': { city: 'Austin', state: 'TX', area: 'The Arboretum' },
-  '78201': { city: 'San Antonio', state: 'TX', area: 'Central San Antonio' },
-  '78209': { city: 'San Antonio', state: 'TX', area: 'Alamo Heights' },
-  '78216': { city: 'San Antonio', state: 'TX', area: 'North Central San Antonio' },
-  '78258': { city: 'San Antonio', state: 'TX', area: 'Stone Oak' },
-  '76102': { city: 'Fort Worth', state: 'TX', area: 'Downtown / Sundance Square' },
-  '76107': { city: 'Fort Worth', state: 'TX', area: 'Cultural District' },
-  '76109': { city: 'Fort Worth', state: 'TX', area: 'TCU Area' },
-  '76132': { city: 'Fort Worth', state: 'TX', area: 'Southwest Fort Worth' },
+  // Washington - Renton
+  '98055': { city: 'Renton', state: 'WA', area: 'Downtown & The Landing' },
+  '98056': { city: 'Renton', state: 'WA', area: 'Renton Highlands & Kennydale' },
+  '98057': { city: 'Renton', state: 'WA', area: 'South Renton & Valley' },
+  '98058': { city: 'Renton', state: 'WA', area: 'Fairwood & Cascade' },
+  '98059': { city: 'Renton', state: 'WA', area: 'East Renton Highlands & Maple Valley' },
 
-  // Florida
-  '32801': { city: 'Orlando', state: 'FL', area: 'Downtown Orlando' },
-  '32819': { city: 'Orlando', state: 'FL', area: 'Dr. Phillips / International Dr' },
-  '32836': { city: 'Orlando', state: 'FL', area: 'Windermere / Bay Hill' },
-  '32803': { city: 'Orlando', state: 'FL', area: 'Colonialtown & Mills 50' },
-  '33101': { city: 'Miami', state: 'FL', area: 'Brickell & Miami Metro' },
-  '33131': { city: 'Miami', state: 'FL', area: 'Brickell Key & Downtown Miami' },
-  '33139': { city: 'Miami', state: 'FL', area: 'South Beach' },
-  '33140': { city: 'Miami', state: 'FL', area: 'Mid Beach Miami' },
-  '33602': { city: 'Tampa', state: 'FL', area: 'Downtown Tampa & Channelside' },
-  '33606': { city: 'Tampa', state: 'FL', area: 'Hyde Park & Davis Islands' },
-  '33609': { city: 'Tampa', state: 'FL', area: 'South Tampa' },
-  '33629': { city: 'Tampa', state: 'FL', area: 'Palma Ceia' },
+  // Washington - Kent
+  '98030': { city: 'Kent', state: 'WA', area: 'Kent East Hill & Lake Meridian' },
+  '98031': { city: 'Kent', state: 'WA', area: 'Panther Lake & East Kent' },
+  '98032': { city: 'Kent', state: 'WA', area: 'Kent Downtown & West Valley' },
+  '98042': { city: 'Kent', state: 'WA', area: 'Covington Border & East Hill' },
+  '98064': { city: 'Kent', state: 'WA', area: 'West Hill & Highline Hub' },
 
-  // California
-  '90001': { city: 'Los Angeles', state: 'CA', area: 'Los Angeles Metro' },
-  '90028': { city: 'Los Angeles', state: 'CA', area: 'Hollywood & West Hollywood' },
-  '90210': { city: 'Los Angeles', state: 'CA', area: 'Beverly Hills' },
-  '90046': { city: 'Los Angeles', state: 'CA', area: 'Sunset Strip & Hollywood Hills' },
-  '90049': { city: 'Los Angeles', state: 'CA', area: 'Brentwood' },
-  '92660': { city: 'Orange County', state: 'CA', area: 'Newport Beach' },
-  '92626': { city: 'Orange County', state: 'CA', area: 'Costa Mesa / South Coast' },
-  '92648': { city: 'Orange County', state: 'CA', area: 'Huntington Beach' },
-  '92651': { city: 'Orange County', state: 'CA', area: 'Laguna Beach' },
-  '92101': { city: 'San Diego', state: 'CA', area: 'Downtown & Gaslamp' },
-  '92109': { city: 'San Diego', state: 'CA', area: 'Pacific Beach & Mission Beach' },
-  '92130': { city: 'San Diego', state: 'CA', area: 'Carmel Valley' },
+  // Washington - Redmond
+  '98052': { city: 'Redmond', state: 'WA', area: 'Downtown & Marymoor Park' },
+  '98053': { city: 'Redmond', state: 'WA', area: 'Redmond Ridge & Novelty Hill' },
+  '98073': { city: 'Redmond', state: 'WA', area: 'Education Hill & North Redmond' },
+  '98074': { city: 'Redmond', state: 'WA', area: 'Sammamish Plateau & East Redmond' },
 
-  // Georgia
-  '30301': { city: 'Atlanta', state: 'GA', area: 'Downtown Atlanta' },
-  '30309': { city: 'Atlanta', state: 'GA', area: 'Midtown / Atlantic Station' },
-  '30328': { city: 'Atlanta', state: 'GA', area: 'Sandy Springs' },
-  '30305': { city: 'Atlanta', state: 'GA', area: 'Buckhead Village' },
-  '30326': { city: 'Atlanta', state: 'GA', area: 'Lenox / Phipps Plaza' },
-
-  // Illinois
-  '60601': { city: 'Chicago', state: 'IL', area: 'Chicago Loop / Near East Side' },
-  '60611': { city: 'Chicago', state: 'IL', area: 'Streeterville / Magnificent Mile' },
-  '60614': { city: 'Chicago', state: 'IL', area: 'Lincoln Park & DePaul' },
-  '60654': { city: 'Chicago', state: 'IL', area: 'River North' },
-  '60618': { city: 'Chicago', state: 'IL', area: 'Avondale & Roscoe Village' }
+  // Washington - Bellevue
+  '98004': { city: 'Bellevue', state: 'WA', area: 'Downtown Bellevue & West Bellevue' },
+  '98005': { city: 'Bellevue', state: 'WA', area: 'Wilburton & Spring District' },
+  '98006': { city: 'Bellevue', state: 'WA', area: 'Somerset & Factoria' },
+  '98007': { city: 'Bellevue', state: 'WA', area: 'Crossroads & Lake Hills' },
+  '98008': { city: 'Bellevue', state: 'WA', area: 'Phantom Lake & Robinswood' }
 };
 
 export const INITIAL_BOOKINGS: Booking[] = [
@@ -410,13 +357,13 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94820',
     createdAt: '2026-09-14T06:45:00Z',
     customerName: 'Customer A (Arthur Pendelton)',
-    phone: '(832) 555-7320',
+    phone: '(253) 555-7320',
     email: 'arthur.pendelton@gmail.com',
-    streetAddress: '1420 Post Oak Blvd',
+    streetAddress: '3120 SW 320th St',
     aptUnit: 'Apt 12B',
-    city: 'Houston',
-    state: 'TX',
-    zipCode: '77056',
+    city: 'Federal Way',
+    state: 'WA',
+    zipCode: '98023',
     propertyType: 'apartment',
     hasPets: false,
     parkingAccess: 'parking_lot',
@@ -469,12 +416,12 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94819',
     createdAt: '2026-09-14T07:15:00Z',
     customerName: 'Customer B (Beatrice Cooper)',
-    phone: '(832) 555-9502',
+    phone: '(425) 555-9502',
     email: 'beatrice.cooper@yahoo.com',
-    streetAddress: '3804 Westheimer Rd',
-    city: 'Houston',
-    state: 'TX',
-    zipCode: '77027',
+    streetAddress: '10200 NE 8th St',
+    city: 'Bellevue',
+    state: 'WA',
+    zipCode: '98004',
     propertyType: 'single_family',
     hasPets: true,
     petDetails: '1 Persian cat (indoor, gentle)',
@@ -511,13 +458,13 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94821',
     createdAt: '2026-09-14T09:30:00Z',
     customerName: 'Marcus Sterling',
-    phone: '(832) 555-4921',
+    phone: '(425) 555-4921',
     email: 'marcus.sterling@gmail.com',
-    streetAddress: '2418 River Oaks Blvd',
+    streetAddress: '16600 NE 76th St',
     aptUnit: 'Apt 4B',
-    city: 'Houston',
-    state: 'TX',
-    zipCode: '77056',
+    city: 'Redmond',
+    state: 'WA',
+    zipCode: '98052',
     propertyType: 'single_family',
     hasPets: true,
     petDetails: '1 Golden Retriever (friendly, crated in guest room)',
@@ -565,12 +512,12 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94822',
     createdAt: '2026-09-14T11:15:00Z',
     customerName: 'Elena Rostova',
-    phone: '(407) 555-8312',
+    phone: '(425) 555-8312',
     email: 'elena.rostova@outlook.com',
-    streetAddress: '7822 Lake Vista Dr',
-    city: 'Orlando',
-    state: 'FL',
-    zipCode: '32819',
+    streetAddress: '1200 Park Ave N',
+    city: 'Renton',
+    state: 'WA',
+    zipCode: '98056',
     propertyType: 'single_family',
     hasPets: false,
     parkingAccess: 'driveway',
@@ -605,13 +552,13 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94823',
     createdAt: '2026-09-14T14:40:00Z',
     customerName: 'Derrick Vance',
-    phone: '(404) 555-9011',
+    phone: '(253) 555-9011',
     email: 'derrick.vance@techcorp.io',
-    streetAddress: '1120 Peachtree St NE',
+    streetAddress: '24000 104th Ave SE',
     aptUnit: 'Suite 1804',
-    city: 'Atlanta',
-    state: 'GA',
-    zipCode: '30309',
+    city: 'Kent',
+    state: 'WA',
+    zipCode: '98030',
     propertyType: 'apartment',
     hasPets: true,
     petDetails: '1 Siamese cat (quiet)',
@@ -638,12 +585,12 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94824',
     createdAt: '2026-09-13T16:20:00Z',
     customerName: 'Claire Abernathy',
-    phone: '(214) 555-3398',
+    phone: '(425) 555-3398',
     email: 'claire.abernathy@yahoo.com',
-    streetAddress: '4502 Armstrong Pkwy',
-    city: 'Dallas',
-    state: 'TX',
-    zipCode: '75205',
+    streetAddress: '2800 Colby Ave',
+    city: 'Everett',
+    state: 'WA',
+    zipCode: '98201',
     propertyType: 'single_family',
     hasPets: false,
     parkingAccess: 'driveway',
@@ -679,13 +626,13 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94825',
     createdAt: '2026-09-14T08:10:00Z',
     customerName: 'Robert Gomez',
-    phone: '(310) 555-7281',
+    phone: '(425) 555-7281',
     email: 'rgomez.photo@gmail.com',
-    streetAddress: '934 Wilshire Blvd',
+    streetAddress: '14800 NE 24th St',
     aptUnit: 'Unit 201',
-    city: 'Beverly Hills',
-    state: 'CA',
-    zipCode: '90210',
+    city: 'Redmond',
+    state: 'WA',
+    zipCode: '98052',
     propertyType: 'office',
     hasPets: false,
     parkingAccess: 'parking_lot',
@@ -721,13 +668,13 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94826',
     createdAt: '2026-09-12T10:00:00Z',
     customerName: 'Samantha Lee',
-    phone: '(312) 555-1940',
+    phone: '(253) 555-1940',
     email: 'sam.lee77@gmail.com',
-    streetAddress: '680 N Michigan Ave',
+    streetAddress: '1110 3rd Ave S',
     aptUnit: 'Apt 1208',
-    city: 'Chicago',
-    state: 'IL',
-    zipCode: '60611',
+    city: 'Federal Way',
+    state: 'WA',
+    zipCode: '98003',
     propertyType: 'apartment',
     hasPets: true,
     petDetails: '2 French Bulldogs',
@@ -754,13 +701,13 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94827',
     createdAt: '2026-09-13T14:10:00Z',
     customerName: 'Customer C (Charles Montgomery)',
-    phone: '(832) 555-4019',
-    email: 'cmontgomery@lawhouston.com',
-    streetAddress: '902 Memorial Drive',
+    phone: '(425) 555-4019',
+    email: 'cmontgomery@everettlegal.com',
+    streetAddress: '1000 SE Everett Mall Way',
     aptUnit: 'Suite 400',
-    city: 'Houston',
-    state: 'TX',
-    zipCode: '77024',
+    city: 'Everett',
+    state: 'WA',
+    zipCode: '98208',
     propertyType: 'office',
     hasPets: false,
     parkingAccess: 'parking_lot',
@@ -796,12 +743,12 @@ export const INITIAL_BOOKINGS: Booking[] = [
     id: 'PC-94828',
     createdAt: '2026-09-13T09:00:00Z',
     customerName: 'Oakridge Executive Suites',
-    phone: '(214) 555-8812',
+    phone: '(425) 555-8812',
     email: 'facilities@oakridgesuites.com',
-    streetAddress: '7200 Preston Rd',
-    city: 'Dallas',
-    state: 'TX',
-    zipCode: '75024',
+    streetAddress: '500 108th Ave NE',
+    city: 'Bellevue',
+    state: 'WA',
+    zipCode: '98004',
     propertyType: 'office',
     hasPets: false,
     parkingAccess: 'parking_lot',
@@ -838,7 +785,7 @@ export const REVIEWS: ReviewItem[] = [
   {
     id: 'rev-1',
     author: 'Sarah Jenkins',
-    location: 'Houston, TX',
+    location: 'Bellevue, WA',
     rating: 5,
     date: '3 days ago',
     service: 'Carpet & Pet Odor Extraction',
@@ -848,7 +795,7 @@ export const REVIEWS: ReviewItem[] = [
   {
     id: 'rev-2',
     author: 'James Harrington',
-    location: 'Orlando, FL',
+    location: 'Redmond, WA',
     rating: 5,
     date: '1 week ago',
     service: 'Sectional Sofa Deep Shampoo',
@@ -858,7 +805,7 @@ export const REVIEWS: ReviewItem[] = [
   {
     id: 'rev-3',
     author: 'Emily Rodriguez',
-    location: 'Los Angeles, CA',
+    location: 'Federal Way, WA',
     rating: 5,
     date: '2 weeks ago',
     service: 'Mattress & Area Rug Restoration',
@@ -868,7 +815,7 @@ export const REVIEWS: ReviewItem[] = [
   {
     id: 'rev-4',
     author: 'David K. Miller',
-    location: 'Dallas, TX',
+    location: 'Renton, WA',
     rating: 5,
     date: '3 weeks ago',
     service: 'Whole House 4-Room Steam Clean',
@@ -881,7 +828,7 @@ export const BEFORE_AFTER: BeforeAfterItem[] = [
   {
     id: 'ba-1',
     title: 'High-Traffic Living Room Carpet',
-    location: 'Houston, TX',
+    location: 'Federal Way, WA',
     service: 'Hot Water Deep Extraction',
     description: 'Years of ground-in soil, shoe dirt, and dull fibers revived with our commercial truck-mounted dual-wand system.',
     stainType: 'Heavy Soil & Grease',
@@ -891,7 +838,7 @@ export const BEFORE_AFTER: BeforeAfterItem[] = [
   {
     id: 'ba-2',
     title: 'Microfiber Velvet Sectional Sofa',
-    location: 'Atlanta, GA',
+    location: 'Bellevue, WA',
     service: 'Delicate Low-Moisture Shampoo',
     description: 'Complete removal of coffee stains, body oils, and pet dander from light cream upholstery without fiber water rings.',
     stainType: 'Coffee & Spills',
@@ -901,7 +848,7 @@ export const BEFORE_AFTER: BeforeAfterItem[] = [
   {
     id: 'ba-3',
     title: 'Bedroom Plush Carpet & Pet Urine',
-    location: 'Orlando, FL',
+    location: 'Everett, WA',
     service: 'Bio-Enzymatic Sub-Surface Rinse',
     description: 'Deep localized injection and extraction pulling out months-old pet accidents and deep odor crystals permanently.',
     stainType: 'Pet Stain & Odor',

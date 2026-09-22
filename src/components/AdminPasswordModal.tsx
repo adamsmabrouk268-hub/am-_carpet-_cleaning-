@@ -114,7 +114,7 @@ export default function AdminPasswordModal({
             </div>
             <div>
               <h3 className="text-sm font-bold">Change Admin Password</h3>
-              <p className="text-[11px] text-slate-300">Update master credentials for A&M Carpet Cleaning console</p>
+              <p className="text-[11px] text-slate-300">Update master credentials for A&M Carpet Cleaning & Painting console</p>
             </div>
           </div>
           <button

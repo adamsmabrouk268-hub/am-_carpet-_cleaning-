@@ -20,8 +20,8 @@ export default function ServiceAreaChecker({ onSelectZipForBooking }: ServiceAre
   }, []);
 
   // Navigation hierarchy: State > City > ZIP code
-  const [selectedStateCode, setSelectedStateCode] = useState<string>('TX'); // Default Texas as requested
-  const [selectedCityName, setSelectedCityName] = useState<string>('Houston'); // Default Houston as requested
+  const [selectedStateCode, setSelectedStateCode] = useState<string>('WA'); // Default Washington
+  const [selectedCityName, setSelectedCityName] = useState<string>('Federal Way'); // Default Federal Way
   const [zipInput, setZipInput] = useState<string>('');
 
   // Result state
@@ -37,15 +37,15 @@ export default function ServiceAreaChecker({ onSelectZipForBooking }: ServiceAre
   // Currently selected State object
   const currentState: StateCoverage =
     statesData.find((s) => s.stateCode === selectedStateCode) || statesData[0] || {
-      stateCode: 'TX',
-      stateName: 'Texas',
+      stateCode: 'WA',
+      stateName: 'Washington',
       cities: []
     };
 
   // Currently selected City object
   const currentCity: CityCoverage =
     currentState.cities.find((c) => c.cityName === selectedCityName) || currentState.cities[0] || {
-      cityName: 'Houston',
+      cityName: 'Federal Way',
       description: 'Metropolitan Area',
       zips: [],
       popularZips: []
@@ -125,12 +125,12 @@ export default function ServiceAreaChecker({ onSelectZipForBooking }: ServiceAre
         city: currentCity.cityName,
         state: currentState.stateCode
       });
-    } else if (/^[79362]\d{4}$/.test(zip)) {
-      // Regional match
+    } else if (/^9[89]\d{3}$/.test(zip)) {
+      // Regional match (Washington State regional)
       setResult({
         status: 'success',
         message: `Service is available for ZIP ${zip}!`,
-        details: `Standard regional crew covers this route. Open morning and afternoon arrival windows available.`,
+        details: `Standard regional crew covers this route in ${currentState.stateName}. Open morning and afternoon arrival windows available.`,
         zip,
         city: currentCity.cityName,
         state: currentState.stateCode
@@ -282,7 +282,7 @@ export default function ServiceAreaChecker({ onSelectZipForBooking }: ServiceAre
                       if (result.status !== 'idle') setResult({ status: 'idle', message: '' });
                     }}
                     onKeyDown={(e) => e.key === 'Enter' && handleCheckZip()}
-                    placeholder={`Enter 5-digit ZIP for ${currentCity.cityName} (e.g. ${currentCity.popularZips[0] || '77001'})`}
+                    placeholder={`Enter 5-digit ZIP for ${currentCity.cityName} (e.g. ${currentCity.popularZips[0] || '98003'})`}
                     className="w-full pl-11 pr-4 py-3.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white font-semibold text-slate-800 shadow-2xs"
                   />
                 </div>

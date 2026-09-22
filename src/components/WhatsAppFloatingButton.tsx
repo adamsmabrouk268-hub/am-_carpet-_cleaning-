@@ -20,7 +20,7 @@ export default function WhatsAppFloatingButton() {
                   <span>Direct Owner Contact</span>
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300" />
                 </div>
-                <div className="text-sm font-extrabold text-white">A&M Carpet Cleaning</div>
+                <div className="text-sm font-extrabold text-white">A&M Carpet Cleaning & Painting</div>
               </div>
             </div>
             <button

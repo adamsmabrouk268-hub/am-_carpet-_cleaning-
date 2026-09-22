@@ -283,7 +283,7 @@ export default function AdminDashboard({
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-lg font-extrabold text-slate-900 tracking-tight">
-                    A&M Carpet Cleaning Dispatch Hub
+                    A&M Carpet Cleaning & Painting Dispatch Hub
                   </h1>
                   <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded">
                     Admin Portal
@@ -293,7 +293,7 @@ export default function AdminDashboard({
                   </span>
                 </div>
                 <p className="text-xs text-slate-500">
-                  Manage carpet cleaning appointments, crew dispatch, & customer CRM
+                  Manage cleaning & painting appointments, crew dispatch, & customer CRM
                 </p>
               </div>
             </div>
@@ -315,6 +315,19 @@ export default function AdminDashboard({
               >
                 <Plus className="w-4 h-4" />
                 <span>New Booking</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('services')}
+                className={`px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === 'services'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
+                }`}
+                title="Edit service prices & rates"
+              >
+                <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Edit Service Prices</span>
               </button>
 
               <button
@@ -421,12 +434,12 @@ export default function AdminDashboard({
               onClick={() => setActiveTab('services')}
               className={`pb-2 border-b-2 transition flex items-center gap-1.5 cursor-pointer shrink-0 ${
                 activeTab === 'services'
-                  ? 'text-blue-600 border-blue-600'
+                  ? 'text-emerald-600 border-emerald-600 font-extrabold'
                   : 'border-transparent hover:text-slate-900'
               }`}
             >
-              <Layers className="w-4 h-4" />
-              <span>Services Catalog</span>
+              <DollarSign className="w-4 h-4 text-emerald-600" />
+              <span>Edit Service Prices & Rates 💵</span>
             </button>
 
             <button

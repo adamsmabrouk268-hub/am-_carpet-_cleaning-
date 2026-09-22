@@ -31,12 +31,12 @@ export default function Footer({ onOpenBooking, onOpenTrack, onOpenAdmin, onNavi
                 <Sparkles className="w-5 h-5" />
               </div>
               <span className="text-xl font-extrabold text-white tracking-tight flex items-center gap-1.5">
-                <span>A&M</span> <span className="text-blue-400">Carpet Cleaning</span>
+                <span>A&M</span> <span className="text-blue-400">Carpet Cleaning & Painting</span>
               </span>
             </button>
             <p className="text-slate-400 text-xs leading-relaxed">
-              Premium residential & commercial steam extraction for carpets, sofas, mattresses, and vehicle interiors.
-              100% child, pet, and fiber safe.
+              Premium residential & commercial steam extraction for carpets, sofas, mattresses, and precision interior wall and trim painting.
+              100% child, pet, and surface safe.
             </p>
             <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs">
               <ShieldCheck className="w-4 h-4" />
@@ -92,7 +92,7 @@ export default function Footer({ onOpenBooking, onOpenTrack, onOpenAdmin, onNavi
                   onClick={() => handleNav('services')}
                   className="hover:text-white transition text-left cursor-pointer"
                 >
-                  Water / String Treatment
+                  Area Rug Cleaning (Wool & Persian)
                 </button>
               </li>
               <li>
@@ -100,7 +100,7 @@ export default function Footer({ onOpenBooking, onOpenTrack, onOpenAdmin, onNavi
                   onClick={() => handleNav('services')}
                   className="hover:text-white transition text-left cursor-pointer"
                 >
-                  Area Rug Cleaning (Wool & Persian)
+                  Interior & Trim Painting Services
                 </button>
               </li>
               <li>
@@ -228,7 +228,7 @@ export default function Footer({ onOpenBooking, onOpenTrack, onOpenAdmin, onNavi
         </div>
 
         <div className="pt-8 border-t border-slate-800 text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>&copy; {new Date().getFullYear()} A&M Carpet Cleaning. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} A&M Carpet Cleaning & Painting. All rights reserved.</p>
           <div className="flex gap-6">
             <span className="hover:text-slate-300">Privacy Policy</span>
             <span className="hover:text-slate-300">Terms of Service</span>

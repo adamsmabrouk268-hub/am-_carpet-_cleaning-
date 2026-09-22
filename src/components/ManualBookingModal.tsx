@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { X, Plus, Calendar, User, Phone, MapPin, Sparkles } from 'lucide-react';
 import { Booking, BookedServiceItem } from '../types';
-import { SERVICES } from '../data/initialData';
+import { getStoredServicesCatalog } from '../utils/adminStorage';
 import { addBooking } from '../utils/bookingStorage';
 
 interface ManualBookingModalProps {
@@ -15,30 +15,31 @@ export default function ManualBookingModal({
   onClose,
   onBookingAdded
 }: ManualBookingModalProps) {
-  if (!isOpen) return null;
-
+  const servicesList = getStoredServicesCatalog();
   const todayStr = new Date().toISOString().split('T')[0];
 
   const [customerName, setCustomerName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
-  const [city, setCity] = useState('Houston');
-  const [state, setState] = useState('TX');
-  const [zipCode, setZipCode] = useState('77001');
+  const [city, setCity] = useState('Federal Way');
+  const [state, setState] = useState('WA');
+  const [zipCode, setZipCode] = useState('98003');
   const [date, setDate] = useState(todayStr);
   const [timeSlot, setTimeSlot] = useState('08:00 AM - 11:00 AM');
   const [technician, setTechnician] = useState('Dave & Crew 1 (Truck #3)');
-  const [selectedServiceId, setSelectedServiceId] = useState(SERVICES[0].id);
+  const [selectedServiceId, setSelectedServiceId] = useState(servicesList[0]?.id || 'living_room_carpet');
   const [serviceQty, setServiceQty] = useState(1);
-  const [customTotal, setCustomTotal] = useState(80);
+  const [customTotal, setCustomTotal] = useState(servicesList[0]?.basePrice || 75);
   const [notes, setNotes] = useState('');
+
+  if (!isOpen) return null;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!customerName || !phone || !streetAddress) return;
 
-    const matchedService = SERVICES.find((s) => s.id === selectedServiceId) || SERVICES[0];
+    const matchedService = servicesList.find((s) => s.id === selectedServiceId) || servicesList[0];
     const serviceItems: BookedServiceItem[] = [
       {
         id: matchedService.id,
@@ -211,12 +212,12 @@ export default function ManualBookingModal({
                 onChange={(e) => {
                   const sId = e.target.value;
                   setSelectedServiceId(sId);
-                  const matched = SERVICES.find((s) => s.id === sId);
+                  const matched = servicesList.find((s) => s.id === sId);
                   if (matched) setCustomTotal(matched.basePrice * serviceQty);
                 }}
                 className="w-full p-2.5 border border-slate-300 rounded-xl bg-white focus:ring-2 focus:ring-blue-500 outline-none"
               >
-                {SERVICES.map((s) => (
+                {servicesList.map((s) => (
                   <option key={s.id} value={s.id}>
                     {s.name} (${s.basePrice})
                   </option>

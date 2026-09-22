@@ -50,8 +50,8 @@ export type ServiceCategory =
   | 'upholstery'
   | 'couch_sofa'
   | 'mattress'
-  | 'water_treatment'
   | 'area_rug'
+  | 'painting'
   | 'other';
 
 export interface ServiceItem {

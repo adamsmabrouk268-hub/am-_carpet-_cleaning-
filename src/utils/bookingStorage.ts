@@ -11,7 +11,17 @@ export function getStoredBookings(): Booking[] {
       return INITIAL_BOOKINGS;
     }
     const parsed = JSON.parse(data);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_BOOKINGS;
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_BOOKINGS));
+      return INITIAL_BOOKINGS;
+    }
+    // If stored bookings contain legacy non-WA states, reset to the updated Washington INITIAL_BOOKINGS
+    const hasLegacyState = parsed.some((b: Booking) => b.state === 'TX' || b.state === 'FL');
+    if (hasLegacyState) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_BOOKINGS));
+      return INITIAL_BOOKINGS;
+    }
+    return parsed;
   } catch (err) {
     console.error('Failed to load bookings from localStorage:', err);
     return INITIAL_BOOKINGS;
@@ -370,12 +380,12 @@ export function downloadCalendarInvite(booking: Booking): void {
   const icsContent = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//A&M Carpet Cleaning//Carpet & Upholstery Cleaning//EN',
+    'PRODID:-//A&M Carpet Cleaning & Painting//Cleaning & Painting//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    `SUMMARY:A&M Carpet Cleaning (#${booking.id})`,
-    `DESCRIPTION:Professional cleaning appointment for ${booking.customerName}. Services: ${booking.services.map(s => `${s.quantity}x ${s.name}`).join(', ')}. Total: $${booking.totalPrice}. Technician: ${booking.technician || 'A&M Cleaning Team'}. Call or WhatsApp owner at +1 (973) 609-4520 for changes.`,
+    `SUMMARY:A&M Carpet Cleaning & Painting (#${booking.id})`,
+    `DESCRIPTION:Professional appointment for ${booking.customerName}. Services: ${booking.services.map(s => `${s.quantity}x ${s.name}`).join(', ')}. Total: $${booking.totalPrice}. Technician: ${booking.technician || 'A&M Team'}. Call or WhatsApp owner at +1 (973) 609-4520 for changes.`,
     `LOCATION:${booking.streetAddress}, ${booking.city}, ${booking.state} ${booking.zipCode}`,
     `DTSTART:${startFormatted}`,
     `DTEND:${endFormatted}`,

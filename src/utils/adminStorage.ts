@@ -132,7 +132,23 @@ export function getStoredServices(): ServiceItem[] {
       return SERVICES;
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : SERVICES;
+    const valid = Array.isArray(parsed) && parsed.length > 0 ? parsed : SERVICES;
+    // Filter out removed water/string treatment if present in cached localStorage
+    const filtered = valid.filter(
+      (s: ServiceItem) => s.id !== 'water_string_treatment' && (s.category as string) !== 'water_treatment'
+    );
+    // Ensure newly introduced default services (such as painting) are populated into existing storage
+    const hasPainting = filtered.some((s: ServiceItem) => s.category === 'painting');
+    if (!hasPainting) {
+      const paintingDefaults = SERVICES.filter((s) => s.category === 'painting');
+      const merged = [...filtered, ...paintingDefaults];
+      localStorage.setItem(KEY_SERVICES, JSON.stringify(merged));
+      return merged;
+    }
+    if (filtered.length !== valid.length) {
+      localStorage.setItem(KEY_SERVICES, JSON.stringify(filtered));
+    }
+    return filtered;
   } catch (err) {
     console.error('Failed to load services catalog:', err);
     return SERVICES;
@@ -213,7 +229,17 @@ export function getStoredStates(): StateCoverage[] {
       return STATES_DATA;
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : STATES_DATA;
+    // If stored states contain non-WA states or lack WA, update to Washington state definition
+    if (
+      !Array.isArray(parsed) ||
+      parsed.length === 0 ||
+      parsed.some((s: StateCoverage) => s.stateCode !== 'WA') ||
+      !parsed.some((s: StateCoverage) => s.stateCode === 'WA')
+    ) {
+      localStorage.setItem(KEY_STATES, JSON.stringify(STATES_DATA));
+      return STATES_DATA;
+    }
+    return parsed;
   } catch (err) {
     console.error('Failed to load states coverage:', err);
     return STATES_DATA;
@@ -237,7 +263,12 @@ export function getStoredServicedZips(): { [zip: string]: { city: string; state:
       return SERVICED_ZIPS;
     }
     const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === 'object' ? parsed : SERVICED_ZIPS;
+    // If stored zips have old Texas/Florida zips or lack Washington zips, sync with SERVICED_ZIPS
+    if (!parsed || typeof parsed !== 'object' || parsed['77001'] || !parsed['98003']) {
+      localStorage.setItem(KEY_ZIPS, JSON.stringify(SERVICED_ZIPS));
+      return SERVICED_ZIPS;
+    }
+    return parsed;
   } catch (err) {
     console.error('Failed to load serviced zips:', err);
     return SERVICED_ZIPS;

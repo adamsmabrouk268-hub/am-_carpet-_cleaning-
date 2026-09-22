@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import {
   Calendar,
   Clock,
@@ -14,18 +14,19 @@ import {
   Mail,
   Sofa,
   BedDouble,
-  Droplets,
   Layers,
   Car,
   Armchair,
+  Paintbrush,
   Check,
   Plus,
   Minus,
   MessageCircle
 } from 'lucide-react';
-import { SERVICES, TIME_SLOTS } from '../data/initialData';
-import { Booking, BookedServiceItem } from '../types';
+import { TIME_SLOTS } from '../data/initialData';
+import { Booking, BookedServiceItem, ServiceItem } from '../types';
 import { addBooking } from '../utils/bookingStorage';
+import { getStoredServicesCatalog, DATA_CHANGED_EVENT } from '../utils/adminStorage';
 import { BUSINESS_OWNER_CONTACT } from '../utils/contactConfig';
 
 interface BookingsSectionProps {
@@ -51,15 +52,24 @@ export default function BookingsSection({
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [streetAddress, setStreetAddress] = useState<string>('');
-  const [zipCode, setZipCode] = useState<string>('77001');
-  const [city, setCity] = useState<string>('Houston');
-  const [state, setState] = useState<string>('TX');
+  const [zipCode, setZipCode] = useState<string>('98003');
+  const [city, setCity] = useState<string>('Federal Way');
+  const [state, setState] = useState<string>('WA');
 
   // 2. Service Selection (Carpet, Sofa, Mattress, or Others)
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [servicesList, setServicesList] = useState<ServiceItem[]>(() => getStoredServicesCatalog());
   const [selectedServices, setSelectedServices] = useState<{ [id: string]: number }>({
     living_room_carpet: 1
   });
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setServicesList(getStoredServicesCatalog());
+    };
+    window.addEventListener(DATA_CHANGED_EVENT, handleUpdate);
+    return () => window.removeEventListener(DATA_CHANGED_EVENT, handleUpdate);
+  }, []);
 
   // 3. Appointment Date & Arrival Window
   const [date, setDate] = useState<string>(defaultDateStr);
@@ -101,7 +111,7 @@ export default function BookingsSection({
   // Compute booked items & total price
   const bookedItems: BookedServiceItem[] = [];
   let totalPrice = 0;
-  SERVICES.forEach((srv) => {
+  servicesList.forEach((srv) => {
     const qty = selectedServices[srv.id] || 0;
     if (qty > 0) {
       const lineTotal = qty * srv.basePrice;
@@ -167,8 +177,8 @@ export default function BookingsSection({
       phone: phone.trim(),
       email: email.trim().toLowerCase(),
       streetAddress: streetAddress.trim(),
-      city: city.trim() || 'Houston',
-      state: state.trim() || 'TX',
+      city: city.trim() || 'Federal Way',
+      state: state.trim() || 'WA',
       zipCode: zipCode.trim(),
       propertyType: 'single_family',
       hasPets: false,
@@ -214,16 +224,16 @@ export default function BookingsSection({
     { id: 'carpet', label: 'Carpet Cleaning', icon: Sparkles },
     { id: 'couch_sofa', label: 'Sofa / Couch Cleaning', icon: Sofa },
     { id: 'mattress', label: 'Mattress Cleaning', icon: BedDouble },
-    { id: 'water_treatment', label: 'Water / String Treatment', icon: Droplets },
     { id: 'upholstery', label: 'Upholstery Cleaning', icon: Armchair },
     { id: 'area_rug', label: 'Area Rug Cleaning', icon: Layers },
+    { id: 'painting', label: 'Painting Services', icon: Paintbrush },
     { id: 'other', label: 'Others (Auto & Commercial)', icon: Car }
   ];
 
   const filteredServices =
     activeCategory === 'all'
-      ? SERVICES
-      : SERVICES.filter((s) => s.category === activeCategory);
+      ? servicesList
+      : servicesList.filter((s) => s.category === activeCategory);
 
   return (
     <section id="bookings" className="py-18 bg-slate-100 border-b border-slate-200 scroll-mt-20">

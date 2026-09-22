@@ -19,17 +19,17 @@ export default function Hero({ onOpenBooking }: HeroProps) {
             {/* Top Pill */}
             <div className="inline-flex items-center gap-2 bg-blue-100/80 border border-blue-200 text-blue-800 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase mb-6">
               <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-              <span>Professional Steam Cleaning & Upholstery Care</span>
+              <span>Professional Steam Cleaning & Interior Painting Care</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-6">
               Fresh, Deep-Cleaned Carpets <br />
-              <span className="text-blue-600">& Furniture</span> Right at Your Door.
+              <span className="text-blue-600">& Flawless Painting</span> Right at Your Door.
             </h1>
 
             <p className="text-lg text-slate-600 mb-8 max-w-2xl leading-relaxed">
-              Hospital-grade steam cleaning for carpets, upholstery, couches & sofas, mattresses, water/string treatment, area rugs, and more.
-              We dissolve tough pet stains, trapped allergens, and lingering moisture with 100% kid- and pet-safe botanical solutions.
+              Hospital-grade steam cleaning for carpets, sofas, mattresses, and area rugs, plus professional interior room and trim painting.
+              We dissolve tough stains, eliminate allergens, and deliver precision brush and roll painting with 100% safe, non-toxic materials.
             </p>
 
             {/* Quick Feature Badges */}

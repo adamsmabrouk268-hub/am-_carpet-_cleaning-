@@ -66,7 +66,7 @@ export default function AdminLogin({ onLoginSuccess, onCancel }: AdminLoginProps
       } else {
         setIsSubmitting(false);
         if (!isEmailValid && !isPassValid) {
-          setError('Invalid email address and password. Access restricted to authorized A&M Carpet Cleaning staff.');
+          setError('Invalid email address and password. Access restricted to authorized A&M Carpet Cleaning & Painting staff.');
         } else if (!isEmailValid) {
           setError(`Invalid email address. Please use the registered admin email (${REQUIRED_ADMIN_EMAIL}).`);
         } else {
@@ -94,7 +94,7 @@ export default function AdminLogin({ onLoginSuccess, onCancel }: AdminLoginProps
             Admin Dispatch Portal
           </h2>
           <p className="text-xs text-blue-200/80 mt-1 max-w-xs mx-auto">
-            A&M Carpet Cleaning Internal Work Order & Schedule Management
+            A&M Carpet Cleaning & Painting Internal Work Order & Schedule Management
           </p>
           <div className="mt-3 inline-flex items-center gap-1.5 bg-blue-900/60 border border-blue-700/50 px-3 py-1 rounded-full text-[10px] font-semibold tracking-wide text-blue-300">
             <Lock className="w-3 h-3" />
@@ -286,7 +286,7 @@ export default function AdminLogin({ onLoginSuccess, onCancel }: AdminLoginProps
 
         {/* Security Footer Note */}
         <div className="bg-slate-50 border-t border-slate-100 px-6 py-3 text-[11px] text-slate-400 text-center">
-          A&M Carpet Cleaning Secure Dispatch System &bull; SSL 256-Bit Encrypted
+          A&M Carpet Cleaning & Painting Secure Dispatch System &bull; SSL 256-Bit Encrypted
         </div>
       </div>
     </div>

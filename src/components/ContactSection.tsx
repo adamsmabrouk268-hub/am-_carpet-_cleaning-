@@ -19,7 +19,7 @@ export default function ContactSection() {
     name: '',
     phone: '',
     email: '',
-    cityState: 'Houston, TX',
+    cityState: 'Federal Way, WA',
     service: 'Carpet Steam Cleaning',
     message: ''
   });
@@ -44,7 +44,7 @@ export default function ContactSection() {
             Contact Us — We're Here to Help
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-            Have questions about stubborn stains, commercial steam contracts, or urgent spot extraction? Reach our local dispatch coordinator immediately.
+            Have questions about stubborn stains, interior painting estimates, commercial steam contracts, or urgent spot extraction? Reach our local dispatch coordinator immediately.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ export default function ContactSection() {
               </div>
 
               <p className="text-xs text-blue-100/90 leading-relaxed mb-4">
-                Speak directly with the business owner for immediate route openings, custom commercial estimates, and emergency stain or water extractions.
+                Speak directly with the business owner for immediate route openings, custom commercial estimates, and emergency stain extractions.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -154,16 +154,16 @@ export default function ContactSection() {
               </div>
               <div className="space-y-2.5 text-xs text-slate-600">
                 <div>
-                  <span className="font-bold text-slate-900">Texas Hub (Houston):</span> 2410 Westheimer Rd, Suite 400, Houston, TX 77098
+                  <span className="font-bold text-slate-900">South King Hub (Federal Way & Kent):</span> 32000 Pacific Hwy S, Federal Way, WA 98003
                 </div>
                 <div>
-                  <span className="font-bold text-slate-900">North Texas Hub (Dallas):</span> 1900 Stemmons Fwy, Dallas, TX 75207
+                  <span className="font-bold text-slate-900">Eastside Hub (Bellevue & Redmond):</span> 10800 NE 8th St, Bellevue, WA 98004
                 </div>
                 <div>
-                  <span className="font-bold text-slate-900">Florida Hub (Orlando):</span> 7600 Sand Lake Rd, Orlando, FL 32819
+                  <span className="font-bold text-slate-900">Renton & South Metro Hub:</span> 800 N 10th St, Renton, WA 98057
                 </div>
                 <div>
-                  <span className="font-bold text-slate-900">California Hub (Los Angeles):</span> 10880 Wilshire Blvd, Los Angeles, CA 90024
+                  <span className="font-bold text-slate-900">Snohomish County Hub (Everett):</span> 2930 Wetmore Ave, Everett, WA 98201
                 </div>
               </div>
             </div>
@@ -187,7 +187,7 @@ export default function ContactSection() {
                       name: '',
                       phone: '',
                       email: '',
-                      cityState: 'Houston, TX',
+                      cityState: 'Federal Way, WA',
                       service: 'Carpet Steam Cleaning',
                       message: ''
                     });
@@ -244,7 +244,7 @@ export default function ContactSection() {
                     <label className="block text-xs font-bold text-slate-700 mb-1">City / State</label>
                     <input
                       type="text"
-                      placeholder="e.g. Houston, TX or Dallas, TX"
+                      placeholder="e.g. Federal Way, WA or Bellevue, WA"
                       value={formData.cityState}
                       onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
                       className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
@@ -262,6 +262,12 @@ export default function ContactSection() {
                     <option>Carpet Steam Cleaning (Residential)</option>
                     <option>Upholstery & Sofa Shampoo</option>
                     <option>Mattress Allergen Sanitization</option>
+                    <option>Area Rug Precision Cleaning</option>
+                    <option>Interior Room Wall Painting</option>
+                    <option>Accent Wall & Color Refresh</option>
+                    <option>Trim, Baseboard & Door Frame Painting</option>
+                    <option>Cabinet Painting & Refinishing</option>
+                    <option>Exterior Trim & Touch-Up Painting</option>
                     <option>Pet Stain & Bio-Enzyme Odor Neutralizer</option>
                     <option>Vehicle Interior Carpet & Seat Detail</option>
                     <option>Commercial Office Carpet Cleaning</option>
@@ -269,10 +275,10 @@ export default function ContactSection() {
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Message / Stain Details</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Message / Project Details</label>
                   <textarea
                     rows={4}
-                    placeholder="Describe your cleaning requirements, room count, or any specific stains (red wine, pet stains, coffee, high foot traffic)..."
+                    placeholder="Describe your cleaning or painting requirements, room count, wall conditions, or any specific stains (pet stains, grease, high foot traffic)..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white resize-none"

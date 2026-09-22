@@ -1,6 +1,6 @@
 {
-  "name": "A&M Carpet Cleaning",
-  "description": "A&M Carpet Cleaning booking platform with instant quotes, real-time slot scheduling, and appointment management.",
+  "name": "A&M Carpet Cleaning and Painting",
+  "description": "A&M Carpet Cleaning and Painting booking platform with instant quotes, real-time slot scheduling, and appointment management across Washington State.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

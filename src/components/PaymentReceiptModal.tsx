@@ -101,9 +101,9 @@ export default function PaymentReceiptModal({
                 <div className="bg-blue-600 text-white p-1.5 rounded-lg flex items-center justify-center">
                   <Sparkles className="w-4 h-4" />
                 </div>
-                <span>A&M <span className="text-blue-600">Carpet Cleaning</span></span>
+                <span>A&M <span className="text-blue-600">Carpet Cleaning & Painting</span></span>
               </div>
-              <p className="text-[11px] text-slate-500 mt-1">A&M Carpet Cleaning LLC</p>
+              <p className="text-[11px] text-slate-500 mt-1">A&M Carpet Cleaning & Painting LLC</p>
               <p className="text-[11px] text-slate-500">Owner Contact / WhatsApp: {BUSINESS_OWNER_CONTACT.phone} &bull; {BUSINESS_OWNER_CONTACT.email}</p>
             </div>
 
@@ -232,7 +232,7 @@ export default function PaymentReceiptModal({
               <ShieldCheck className="w-4 h-4 text-sky-600" />
               <span>100% Satisfaction Guarantee. Truck-Mounted Hot Water Extraction.</span>
             </div>
-            <span className="text-slate-400">Thank you for choosing A&M Carpet Cleaning</span>
+            <span className="text-slate-400">Thank you for choosing A&M Carpet Cleaning & Painting</span>
           </div>
         </div>
 

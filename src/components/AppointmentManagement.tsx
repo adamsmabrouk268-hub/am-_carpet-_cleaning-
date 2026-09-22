@@ -629,6 +629,7 @@ export function AppointmentManagement({
             <option value="sofa">Sofa / Upholstery</option>
             <option value="mattress">Mattress Sanitizing</option>
             <option value="rug">Area / Wool Rug</option>
+            <option value="painting">Painting Services</option>
             <option value="vehicle">Vehicle Interior</option>
           </select>
         </div>

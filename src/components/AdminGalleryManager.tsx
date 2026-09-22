@@ -423,7 +423,7 @@ export default function AdminGalleryManager() {
                     <option value="Upholstery Restorative Shampoo">Upholstery Restorative Shampoo</option>
                     <option value="Couch Cushion Rejuvenation">Couch Cushion Rejuvenation</option>
                     <option value="Mattress Allergen Neutralization">Mattress Allergen Neutralization</option>
-                    <option value="Water / String Stain Extraction">Water / String Stain Extraction</option>
+                    <option value="Pet Stain & Odor Extraction">Pet Stain & Odor Extraction</option>
                     <option value="Area Rug Precision Bath">Area Rug Precision Bath</option>
                     <option value="Auto Interior Steam Clean">Auto Interior Steam Clean</option>
                     <option value="Commercial Carpet Maintenance">Commercial Carpet Maintenance</option>

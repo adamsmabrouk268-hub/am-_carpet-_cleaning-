@@ -344,9 +344,9 @@ export function ContactCustomerModal({
   const displayTime = booking.exactTime || booking.timeSlot;
 
   // Pre-formatted messages
-  const onTheWaySMS = `Hi ${booking.customerName}, our A&M cleaning technician is on the way to your property (${booking.streetAddress}) for your ${primaryService} appointment. ETA: 15-20 minutes!`;
+  const onTheWaySMS = `Hi ${booking.customerName}, our A&M service specialist is on the way to your property (${booking.streetAddress}) for your ${primaryService} appointment. ETA: 15-20 minutes!`;
   const reminderSMS = `Hi ${booking.customerName}, friendly reminder of your A&M ${primaryService} appointment scheduled for ${booking.date} at ${displayTime}. Call owner or WhatsApp at ${BUSINESS_OWNER_CONTACT.phone} for any adjustments.`;
-  const completedSMS = `Hi ${booking.customerName}, thank you for choosing A&M Carpet Cleaning today! Your carpets and fabrics have been professionally steam cleaned. Please allow 4-6 hours drying time.`;
+  const completedSMS = `Hi ${booking.customerName}, thank you for choosing A&M Carpet Cleaning & Painting today! Your requested services have been completed with care. Please let us know if you need anything else!`;
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
@@ -400,7 +400,7 @@ export function ContactCustomerModal({
                   <Phone className="w-3 h-3" /> Call
                 </a>
                 <a
-                  href={`https://wa.me/${booking.phone.replace(/\D/g, '')}?text=${encodeURIComponent(`Hi ${booking.customerName}, this is A&M Carpet Cleaning regarding your booking #${booking.id}.`)}`}
+                  href={`https://wa.me/${booking.phone.replace(/\D/g, '')}?text=${encodeURIComponent(`Hi ${booking.customerName}, this is A&M Carpet Cleaning & Painting regarding your booking #${booking.id}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-[#25D366] hover:bg-[#20bd5a] text-white px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 text-[11px]"

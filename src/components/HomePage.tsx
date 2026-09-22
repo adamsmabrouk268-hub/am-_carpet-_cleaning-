@@ -109,7 +109,7 @@ export default function HomePage({
               </h1>
 
               <p className="text-base sm:text-lg text-slate-600 mb-6 max-w-2xl leading-relaxed">
-                Explore our full platform of cleaning solutions, check coverage across {totalStates} states,
+                Explore our full platform of cleaning solutions, check coverage across Washington State,
                 calculate instant flat-rate quotes, or manage your appointment directly. Every section is built
                 to stand on its own with complete transparency.
               </p>
@@ -204,7 +204,7 @@ export default function HomePage({
                 </div>
                 <div>
                   <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Live Fleet Status</div>
-                  <div className="text-xs font-extrabold text-slate-900">3 Vans Active in Texas & Florida</div>
+                  <div className="text-xs font-extrabold text-slate-900">3 Vans Active in Washington State</div>
                 </div>
               </div>
 
@@ -257,7 +257,7 @@ export default function HomePage({
             Explore Each Section On Its Own
           </h2>
           <p className="text-slate-600 text-sm sm:text-base mt-3">
-            Each section of A&M Carpet Cleaning is independently engineered with its own dedicated view, data inputs, and controls. Click any section below to view and use it standing completely on its own.
+            Each section of A&M Carpet Cleaning and Painting is independently engineered with its own dedicated view, data inputs, and controls. Click any section below to view and use it standing completely on its own.
           </p>
         </div>
 
@@ -276,7 +276,7 @@ export default function HomePage({
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Our Services Catalog</h3>
               <p className="text-xs text-slate-600 mb-4 leading-relaxed">
-                Full transparent pricing for deep carpet steam extraction, 3-seater sofas, L-shape sectionals, mattresses, emergency water extraction, area rugs, and commercial suites.
+                Full transparent pricing for deep carpet steam extraction, 3-seater sofas, L-shape sectionals, mattresses, area rugs, vehicle interiors, and commercial suites.
               </p>
               <div className="space-y-1.5 text-xs text-slate-700 mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
                 <div className="flex justify-between font-medium">
@@ -292,8 +292,8 @@ export default function HomePage({
                   <span className="font-bold text-blue-600">$70</span>
                 </div>
                 <div className="flex justify-between font-medium">
-                  <span>• Water & String Treatment</span>
-                  <span className="font-bold text-blue-600">$85</span>
+                  <span>• Area Rug Cleaning (Standard)</span>
+                  <span className="font-bold text-blue-600">$50</span>
                 </div>
               </div>
             </div>
@@ -316,12 +316,12 @@ export default function HomePage({
                   <MapPin className="w-6 h-6" />
                 </div>
                 <span className="text-xs font-bold bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full border border-emerald-200">
-                  {totalStates} States Covered
+                  Washington State Coverage
                 </span>
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Search Area & Coverage</h3>
               <p className="text-xs text-slate-600 mb-3 leading-relaxed">
-                Interactive State › City › ZIP directory covering Houston, Dallas, Austin, Orlando, Miami, Los Angeles, Atlanta, Chicago, and surrounding suburbs.
+                Interactive State › City › ZIP directory covering Federal Way, Everett, Renton, Kent, Redmond, Bellevue, and surrounding hubs.
               </p>
 
               {/* Inline Quick ZIP Tester */}
@@ -520,7 +520,7 @@ export default function HomePage({
               </p>
               <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs text-slate-600 mb-6 italic">
                 “Dave arrived right on time, measured everything honestly, and within 90 minutes our carpet looked practically brand new! Zero chemical smell.”
-                <div className="mt-1 text-slate-800 font-bold not-italic text-[11px]">— Sarah J., Houston TX (Verified)</div>
+                <div className="mt-1 text-slate-800 font-bold not-italic text-[11px]">— Sarah J., Bellevue WA (Verified)</div>
               </div>
             </div>
             <div className="pt-2">
@@ -547,7 +547,7 @@ export default function HomePage({
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Owner Contact & WhatsApp</h3>
               <p className="text-xs text-slate-600 mb-4 leading-relaxed">
-                Connect directly with the business owner for custom quotes, emergency water extraction, and immediate WhatsApp messaging.
+                Connect directly with the business owner for custom quotes, same-day scheduling, and immediate WhatsApp messaging.
               </p>
               <div className="space-y-2 text-xs text-slate-700 mb-6 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
                 <div className="flex items-center justify-between">

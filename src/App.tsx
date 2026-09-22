@@ -265,8 +265,8 @@ export default function App() {
             <StandaloneSectionLayout
               currentView="services"
               title="Our Services Catalog"
-              subtitle="Full pricing catalog for deep steam carpet extraction, sofas, couches, mattresses, water treatments, area rugs, and commercial suites."
-              badge="14 Cleaning Services"
+              subtitle="Full pricing catalog for deep steam carpet extraction, sofas, couches, mattresses, area rugs, vehicle interiors, and commercial suites."
+              badge="Full Cleaning Catalog"
               onNavigate={handleNavigate}
               onOpenBooking={handleOpenGeneralBooking}
             >
@@ -381,8 +381,8 @@ export default function App() {
             <StandaloneSectionLayout
               currentView="contact"
               title="Contact Us & Emergency Dispatch"
-              subtitle="Connect directly with our central dispatch coordinators, 24/7 water extraction squad, and regional managers."
-              badge="24/7 Water Support"
+              subtitle="Connect directly with our central dispatch coordinators, emergency scheduling squad, and regional managers."
+              badge="Fast Response Support"
               onNavigate={handleNavigate}
               onOpenBooking={handleOpenGeneralBooking}
             >

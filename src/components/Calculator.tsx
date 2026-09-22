@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calculator as CalcIcon, Plus, Minus, Check, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
-import { SERVICES, ADD_ONS } from '../data/initialData';
-import { BookedServiceItem, BookedAddOn } from '../types';
+import { ADD_ONS } from '../data/initialData';
+import { BookedServiceItem, BookedAddOn, ServiceItem } from '../types';
+import { getStoredServicesCatalog, DATA_CHANGED_EVENT } from '../utils/adminStorage';
 
 interface CalculatorProps {
   onProceedToBookingWithQuote: (
@@ -14,11 +15,21 @@ interface CalculatorProps {
 
 export default function Calculator({ onProceedToBookingWithQuote }: CalculatorProps) {
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [servicesList, setServicesList] = useState<ServiceItem[]>(() => getStoredServicesCatalog());
 
-  // Quantities for each service item initialized dynamically from SERVICES
+  useEffect(() => {
+    const handleUpdate = () => {
+      setServicesList(getStoredServicesCatalog());
+    };
+    window.addEventListener(DATA_CHANGED_EVENT, handleUpdate);
+    return () => window.removeEventListener(DATA_CHANGED_EVENT, handleUpdate);
+  }, []);
+
+  // Quantities for each service item initialized dynamically from servicesList
   const [quantities, setQuantities] = useState<{ [id: string]: number }>(() => {
     const initial: { [id: string]: number } = {};
-    SERVICES.forEach((s) => {
+    const currentServices = getStoredServicesCatalog();
+    currentServices.forEach((s) => {
       initial[s.id] = s.id === 'living_room_carpet' ? 1 : 0;
     });
     return initial;
@@ -52,7 +63,7 @@ export default function Calculator({ onProceedToBookingWithQuote }: CalculatorPr
   let totalItemsCount = 0;
   const bookedServices: BookedServiceItem[] = [];
 
-  SERVICES.forEach((service) => {
+  servicesList.forEach((service) => {
     const qty = quantities[service.id] || 0;
     if (qty > 0) {
       const itemTotal = qty * service.basePrice;
@@ -106,10 +117,10 @@ export default function Calculator({ onProceedToBookingWithQuote }: CalculatorPr
             <span>Transparent Pricing Tool</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
-            Instant Carpet & Upholstery Price Estimator
+            Instant Cleaning & Painting Price Estimator
           </h2>
           <p className="text-slate-600 text-sm">
-            Adjust the items and add-ons you need cleaned. Zero estimation guesswork—the price you see is what you pay.
+            Adjust the items, rooms, or add-ons you need cleaned or painted. Zero estimation guesswork—the price you see is what you pay.
           </p>
         </div>
 
@@ -117,7 +128,7 @@ export default function Calculator({ onProceedToBookingWithQuote }: CalculatorPr
           {/* Section 1: Rooms & Items Selection */}
           <div className="mb-8">
             <div className="text-sm font-bold text-slate-900 mb-2 flex items-center justify-between">
-              <span>Step 1: Select Rooms & Furniture Items</span>
+              <span>Step 1: Select Rooms, Furniture & Painting Services</span>
               <span className="text-xs font-semibold text-blue-600">
                 {totalItemsCount} {totalItemsCount === 1 ? 'item' : 'items'} selected
               </span>
@@ -131,8 +142,8 @@ export default function Calculator({ onProceedToBookingWithQuote }: CalculatorPr
                 { id: 'upholstery', label: 'Upholstery' },
                 { id: 'couch_sofa', label: 'Couches & Sofas' },
                 { id: 'mattress', label: 'Mattresses' },
-                { id: 'water_treatment', label: 'Water / String' },
                 { id: 'area_rug', label: 'Area Rugs' },
+                { id: 'painting', label: 'Painting' },
                 { id: 'other', label: 'Others' }
               ].map((c) => (
                 <button
@@ -151,7 +162,7 @@ export default function Calculator({ onProceedToBookingWithQuote }: CalculatorPr
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              {SERVICES.filter((item) => activeCategory === 'all' || item.category === activeCategory).map((item) => {
+              {servicesList.filter((item) => activeCategory === 'all' || item.category === activeCategory).map((item) => {
                 const qty = quantities[item.id] || 0;
                 const isSelected = qty > 0;
                 return (
