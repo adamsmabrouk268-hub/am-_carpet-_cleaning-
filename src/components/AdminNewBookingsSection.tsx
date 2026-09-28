@@ -40,10 +40,9 @@ import {
   requestDesktopNotificationPermission,
   getReviewedBookingIds,
   markBookingAsReviewed,
-  markAllBookingsAsReviewed,
-  createSampleBookingData
+  markAllBookingsAsReviewed
 } from '../utils/notificationService';
-import { acceptBooking, denyBooking, updateBookingStatus, addBooking } from '../utils/bookingStorage';
+import { acceptBooking, denyBooking, updateBookingStatus } from '../utils/bookingStorage';
 import JobDetailsModal from './JobDetailsModal';
 import DenyBookingModal from './DenyBookingModal';
 import PaymentReceiptModal from './PaymentReceiptModal';
@@ -129,12 +128,6 @@ export default function AdminNewBookingsSection({
     const allIds = bookings.map((b) => b.id);
     markAllBookingsAsReviewed(allIds);
     setReviewedIds(getReviewedBookingIds());
-  };
-
-  const handleSimulateBooking = () => {
-    const sampleData = createSampleBookingData();
-    const created = addBooking(sampleData);
-    onBookingsChange([created, ...bookings]);
   };
 
   const handleAccept = (bookingId: string) => {
@@ -319,16 +312,6 @@ export default function AdminNewBookingsSection({
               </button>
             )}
 
-            {/* Simulate Booking Button */}
-            <button
-              type="button"
-              onClick={handleSimulateBooking}
-              className="bg-amber-500 hover:bg-amber-600 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 shadow-2xs cursor-pointer"
-              title="Simulate a real customer booking to test notifications and alerts"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Test Live Booking ⚡</span>
-            </button>
 
             {/* Mark All Reviewed */}
             {unreviewedCount > 0 && (
@@ -515,27 +498,19 @@ export default function AdminNewBookingsSection({
               : 'bg-white border-slate-200 text-slate-500'
           }`}
         >
-          <div className="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto mb-3">
+          <div className="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-3">
             <Bell className="w-7 h-7" />
           </div>
           <h4 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
-            No bookings found under "{activeFilter}" filter
+            {activeFilter === 'unreviewed' ? 'All Booking Alerts Reviewed' : 'No Bookings Found'}
           </h4>
           <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto mt-1">
             {activeFilter === 'unreviewed'
-              ? 'All incoming bookings have been reviewed by staff! Click "Test Live Booking" to simulate an alert.'
-              : 'Try changing your search terms or selecting another category filter.'}
+              ? 'There are no pending unreviewed booking alerts. As new customers book services, they will appear here instantly with sound alerts.'
+              : 'No bookings match the selected criteria. New orders will appear here as soon as customers submit them.'}
           </p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-            <button
-              type="button"
-              onClick={handleSimulateBooking}
-              className="bg-amber-500 hover:bg-amber-600 text-slate-950 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Simulate Customer Booking Now</span>
-            </button>
-            {activeFilter !== 'all' && (
+          {activeFilter !== 'all' && bookings.length > 0 && (
+            <div className="mt-4 flex justify-center">
               <button
                 type="button"
                 onClick={() => setActiveFilter('all')}
@@ -543,8 +518,8 @@ export default function AdminNewBookingsSection({
               >
                 View All Bookings ({bookings.length})
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className="space-y-4">

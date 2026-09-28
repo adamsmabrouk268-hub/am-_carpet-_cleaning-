@@ -119,7 +119,7 @@ export default function ManualBookingModal({
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="(555) 000-0000"
+                placeholder="(973) 609-4520"
                 className="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
               />
             </div>

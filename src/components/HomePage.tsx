@@ -423,7 +423,7 @@ export default function HomePage({
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="Reference (e.g. PC-94821)"
+                    placeholder="Reference (e.g. PC-10482)"
                     value={quickTrackId}
                     onChange={(e) => setQuickTrackId(e.target.value)}
                     className="flex-1 text-xs border border-slate-300 rounded-lg px-2.5 py-2 outline-none focus:ring-2 focus:ring-amber-500 uppercase"
@@ -610,7 +610,7 @@ export default function HomePage({
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Admin Panel & Dispatch Calendar 📅</h3>
               <p className="text-xs text-slate-600 mb-3 leading-relaxed">
-                Internal management hub housing the Appointment Management Calendar (Day/Week/Month views, Mon 7:30 AM Customer A, Mon 9:50 AM Customer B), work order queues, status workflows (confirm, reschedule, cancel, complete), payment recording, and technician van routing.
+                Internal management hub housing the Appointment Management Calendar (Day/Week/Month views), live incoming work order alerts, status workflows (confirm, reschedule, cancel, complete), payment recording, and technician van routing.
               </p>
               <div className="bg-indigo-50/80 p-3 rounded-xl border border-indigo-100 text-xs text-indigo-950 mb-5 space-y-1.5">
                 <div className="flex items-center justify-between font-bold">

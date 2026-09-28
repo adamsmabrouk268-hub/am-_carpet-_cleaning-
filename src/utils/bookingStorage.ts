@@ -8,24 +8,36 @@ export function getStoredBookings(): Booking[] {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (!data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_BOOKINGS));
-      return INITIAL_BOOKINGS;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+      return [];
     }
     const parsed = JSON.parse(data);
-    if (!Array.isArray(parsed) || parsed.length === 0) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_BOOKINGS));
-      return INITIAL_BOOKINGS;
+    if (!Array.isArray(parsed)) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+      return [];
     }
-    // If stored bookings contain legacy non-WA states, reset to the updated Washington INITIAL_BOOKINGS
-    const hasLegacyState = parsed.some((b: Booking) => b.state === 'TX' || b.state === 'FL');
-    if (hasLegacyState) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_BOOKINGS));
-      return INITIAL_BOOKINGS;
+    // Filter out all legacy demo bookings
+    const filtered = parsed.filter((b: Booking) => {
+      if (!b || !b.id) return false;
+      if (b.id.startsWith('PC-948')) return false;
+      if (b.phone && b.phone.includes('555-')) return false;
+      if (
+        b.customerName &&
+        (b.customerName.includes('Customer A') ||
+          b.customerName.includes('Customer B') ||
+          b.customerName.includes('Customer C'))
+      ) {
+        return false;
+      }
+      return true;
+    });
+    if (filtered.length !== parsed.length) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
     }
-    return parsed;
+    return filtered;
   } catch (err) {
     console.error('Failed to load bookings from localStorage:', err);
-    return INITIAL_BOOKINGS;
+    return [];
   }
 }
 
@@ -363,9 +375,13 @@ export function recordBookingPayment(
   return updatedBooking;
 }
 
+export function clearAllBookings(): Booking[] {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+  return [];
+}
+
 export function resetDemoBookings(): Booking[] {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_BOOKINGS));
-  return INITIAL_BOOKINGS;
+  return clearAllBookings();
 }
 
 export function downloadCalendarInvite(booking: Booking): void {

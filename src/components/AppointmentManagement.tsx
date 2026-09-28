@@ -29,7 +29,8 @@ import {
   ShieldCheck,
   Check,
   ChevronDown,
-  Printer
+  Printer,
+  Trash2
 } from 'lucide-react';
 import { Booking, BookingStatus, AppointmentNote, PaymentRecord } from '../types';
 import {
@@ -53,7 +54,7 @@ import {
   recordBookingPayment,
   deleteBooking,
   downloadCalendarInvite,
-  resetDemoBookings
+  clearAllBookings
 } from '../utils/bookingStorage';
 
 interface AppointmentManagementProps {
@@ -69,8 +70,8 @@ export function AppointmentManagement({
   onBookingsChange,
   onOpenNewBooking
 }: AppointmentManagementProps) {
-  // Current calendar pivot date (default to Monday, September 14, 2026)
-  const [selectedDate, setSelectedDate] = useState<string>('2026-09-14');
+  // Current calendar pivot date (default to today)
+  const [selectedDate, setSelectedDate] = useState<string>(() => new Date().toISOString().split('T')[0]);
   const [viewMode, setViewMode] = useState<CalendarViewMode>('day');
   
   // Filters
@@ -129,8 +130,10 @@ export function AppointmentManagement({
     setSelectedDate(d.toISOString().split('T')[0]);
   };
 
+  const todayStr = useMemo(() => new Date().toISOString().split('T')[0], []);
+
   const handleToday = () => {
-    setSelectedDate('2026-09-14'); // Monday Sept 14, 2026 (app benchmark)
+    setSelectedDate(new Date().toISOString().split('T')[0]);
   };
 
   // Filtered bookings
@@ -200,12 +203,12 @@ export function AppointmentManagement({
         weekdayName,
         dayNum,
         monthName,
-        isToday: iso === '2026-09-14',
+        isToday: iso === todayStr,
         isSelected: iso === selectedDate
       });
     }
     return days;
-  }, [currentDateObj, selectedDate]);
+  }, [currentDateObj, selectedDate, todayStr]);
 
   // Month calculation
   const monthDays = useMemo(() => {
@@ -223,7 +226,7 @@ export function AppointmentManagement({
         dateStr: d.toISOString().split('T')[0],
         dayNum: d.getDate(),
         isCurrentMonth: false,
-        isToday: d.toISOString().split('T')[0] === '2026-09-14'
+        isToday: d.toISOString().split('T')[0] === todayStr
       });
     }
 
@@ -235,7 +238,7 @@ export function AppointmentManagement({
         dateStr: iso,
         dayNum: i,
         isCurrentMonth: true,
-        isToday: iso === '2026-09-14'
+        isToday: iso === todayStr
       });
     }
 
@@ -247,12 +250,12 @@ export function AppointmentManagement({
         dateStr: last.toISOString().split('T')[0],
         dayNum: last.getDate(),
         isCurrentMonth: false,
-        isToday: last.toISOString().split('T')[0] === '2026-09-14'
+        isToday: last.toISOString().split('T')[0] === todayStr
       });
     }
 
     return days;
-  }, [currentDateObj]);
+  }, [currentDateObj, todayStr]);
 
   // Appointment Actions
   const handleAcceptBooking = (booking: Booking) => {
@@ -342,12 +345,11 @@ export function AppointmentManagement({
     }
   };
 
-  const handleResetSchedule = () => {
-    if (confirm('Reset schedule to default sample appointments (including Monday 7:30 Carpet Cleaning Customer A and 9:50 Sofa Cleaning Customer B)?')) {
-      const reset = resetDemoBookings();
-      onBookingsChange(reset);
-      setSelectedDate('2026-09-14');
-      showToast('Schedule reset to demo appointments.');
+  const handleClearSchedule = () => {
+    if (confirm('Are you sure you want to clear all appointments?')) {
+      clearAllBookings();
+      onBookingsChange([]);
+      showToast('All appointments cleared.');
     }
   };
 
@@ -483,11 +485,11 @@ export function AppointmentManagement({
               </button>
             )}
             <button
-              onClick={handleResetSchedule}
-              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-3.5 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-1.5 cursor-pointer"
-              title="Reset to initial schedule containing Customer A and B"
+              onClick={handleClearSchedule}
+              className="bg-white/10 hover:bg-rose-600/30 text-white border border-white/20 px-3.5 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-1.5 cursor-pointer"
+              title="Clear all scheduled appointments"
             >
-              <RotateCcw className="w-3.5 h-3.5" /> Reset Schedule
+              <Trash2 className="w-3.5 h-3.5" /> Clear Schedule
             </button>
           </div>
         </div>
@@ -584,7 +586,7 @@ export function AppointmentManagement({
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search customer, address, service, phone (e.g. 'Customer A' or 'sofa')..."
+            placeholder="Search customer, address, service, or phone number..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-blue-500 outline-none"
@@ -647,9 +649,9 @@ export function AppointmentManagement({
                 <h2 className="text-lg font-black text-slate-900">
                   {currentDateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
                 </h2>
-                {selectedDate === '2026-09-14' && (
+                {selectedDate === todayStr && (
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-blue-600 text-white">
-                    Today (Monday)
+                    Today
                   </span>
                 )}
               </div>
@@ -673,19 +675,19 @@ export function AppointmentManagement({
               </div>
               <h3 className="font-bold text-slate-900 text-base mb-1">No appointments on this date</h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto mb-4">
-                There are no scheduled jobs on {selectedDate}. Jump back to Monday September 14 to see Customer A & Customer B!
+                There are no scheduled jobs on {selectedDate}.
               </p>
               <div className="flex justify-center gap-2">
                 <button
                   onClick={handleToday}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer"
                 >
-                  Go to Monday (Sept 14)
+                  Jump to Today
                 </button>
                 {onOpenNewBooking && (
                   <button
                     onClick={onOpenNewBooking}
-                    className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition"
+                    className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer"
                   >
                     + Book New Job
                   </button>
@@ -697,19 +699,11 @@ export function AppointmentManagement({
               {dayBookings.map((booking) => {
                 const timeLabel = booking.exactTime || booking.timeSlot;
                 const primaryService = booking.services[0]?.name || 'Cleaning Service';
-                const isCustomerA = booking.id === 'PC-94820';
-                const isCustomerB = booking.id === 'PC-94819';
 
                 return (
                   <div
                     key={booking.id}
-                    className={`p-4 sm:p-6 transition hover:bg-slate-50/70 ${
-                      isCustomerA
-                        ? 'bg-blue-50/30 border-l-4 border-l-blue-600'
-                        : isCustomerB
-                        ? 'bg-indigo-50/30 border-l-4 border-l-indigo-600'
-                        : ''
-                    }`}
+                    className="p-4 sm:p-6 transition hover:bg-slate-50/70"
                   >
                     <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
                       {/* Left: Time & Core Info */}
@@ -936,18 +930,10 @@ export function AppointmentManagement({
                       </div>
                     ) : (
                       dayItems.map((b) => {
-                        const isA = b.id === 'PC-94820';
-                        const isB = b.id === 'PC-94819';
                         return (
                           <div
                             key={b.id}
-                            className={`p-2.5 rounded-xl border text-xs transition shadow-2xs space-y-1.5 ${
-                              isA
-                                ? 'bg-blue-50 border-blue-300'
-                                : isB
-                                ? 'bg-indigo-50 border-indigo-300'
-                                : 'bg-slate-50 border-slate-200 hover:border-slate-300'
-                            }`}
+                            className="p-2.5 rounded-xl border text-xs transition shadow-2xs space-y-1.5 bg-slate-50 border-slate-200 hover:border-slate-300"
                           >
                             <div className="flex items-center justify-between">
                               <span className="font-extrabold text-blue-800 bg-blue-100/80 px-1.5 py-0.5 rounded text-[10px]">

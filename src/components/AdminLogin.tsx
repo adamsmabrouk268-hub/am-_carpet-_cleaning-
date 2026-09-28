@@ -55,7 +55,11 @@ export default function AdminLogin({ onLoginSuccess, onCancel }: AdminLoginProps
     // Verify credentials
     // Email is case-insensitive comparison; password is exact match
     setTimeout(() => {
-      const isEmailValid = cleanEmail.toLowerCase() === REQUIRED_ADMIN_EMAIL.toLowerCase();
+      const isEmailValid =
+        cleanEmail.toLowerCase() === REQUIRED_ADMIN_EMAIL.toLowerCase() ||
+        cleanEmail.toLowerCase() === 'adamsmabrouk268@gmail.com' ||
+        cleanEmail.toLowerCase() === 'dispatch@amcarpetcleaning.com' ||
+        cleanEmail.toLowerCase() === 'adminproclean@gmail.com';
       const isPassValid = cleanPass === getAdminPassword();
 
       if (isEmailValid && isPassValid) {
@@ -171,7 +175,7 @@ export default function AdminLogin({ onLoginSuccess, onCancel }: AdminLoginProps
                     setEmail(e.target.value);
                     if (error) setError(null);
                   }}
-                  placeholder="adminProClean@gmail.com"
+                  placeholder="adamsmabrouk268@gmail.com"
                   disabled={isSubmitting || isSuccess}
                   className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:bg-white transition"
                   required

@@ -20,7 +20,7 @@ export default function BeforeAfterGallery() {
   const currentItem = items[safeIndex] || {
     id: 'placeholder',
     title: 'Steam Carpet Restoration',
-    location: 'Dallas, TX',
+    location: 'Federal Way, WA',
     service: 'Deep Steam Carpet Extraction',
     description: 'Commercial 230°F hot water extraction.',
     beforeImg: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80',

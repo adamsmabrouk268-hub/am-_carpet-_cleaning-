@@ -1,7 +1,7 @@
 import { BeforeAfterItem, ServiceItem, StateCoverage } from '../types';
 import { BEFORE_AFTER, SERVICES, STATES_DATA, SERVICED_ZIPS } from '../data/initialData';
 
-export const DEFAULT_ADMIN_EMAIL = 'adminProClean@gmail.com';
+export const DEFAULT_ADMIN_EMAIL = 'adamsmabrouk268@gmail.com';
 export const DEFAULT_ADMIN_PASS = 'adams@268#';
 
 const KEY_ADMIN_PASS = 'proclean_admin_custom_pass';

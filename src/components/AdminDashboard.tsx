@@ -33,12 +33,13 @@ import {
   Ban,
   ShieldAlert,
   Bell,
-  BellRing
+  BellRing,
+  Trash2
 } from 'lucide-react';
 import { Booking, BookingStatus } from '../types';
 import {
   exportBookingsToCSV,
-  resetDemoBookings,
+  clearAllBookings,
   updateBookingStatus,
   acceptBooking,
   denyBooking
@@ -68,7 +69,7 @@ export default function AdminDashboard({
   onBookingsChange,
   onExitDashboard,
   onLogout,
-  adminEmail = 'adminProClean@gmail.com'
+  adminEmail = 'adamsmabrouk268@gmail.com'
 }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<
     'calendar' | 'new-bookings' | 'appointments' | 'customers' | 'schedule' | 'gallery' | 'services' | 'states' | 'security'
@@ -239,10 +240,10 @@ export default function AdminDashboard({
     onBookingsChange([newBooking, ...bookings]);
   };
 
-  const handleResetData = () => {
-    if (window.confirm('Reset schedule to demo sample bookings?')) {
-      const reset = resetDemoBookings();
-      onBookingsChange(reset);
+  const handleClearData = () => {
+    if (window.confirm('Clear all scheduled appointments from the database? This cannot be undone.')) {
+      clearAllBookings();
+      onBookingsChange([]);
     }
   };
 
@@ -374,11 +375,11 @@ export default function AdminDashboard({
               </button>
 
               <button
-                onClick={handleResetData}
-                className="bg-white hover:bg-slate-100 text-slate-500 border border-slate-200 p-2 rounded-xl text-xs transition cursor-pointer"
-                title="Reset to demo sample bookings"
+                onClick={handleClearData}
+                className="bg-white hover:bg-rose-50 text-slate-400 hover:text-rose-600 border border-slate-200 p-2 rounded-xl text-xs transition cursor-pointer"
+                title="Clear all appointments"
               >
-                <RotateCcw className="w-4 h-4" />
+                <Trash2 className="w-4 h-4" />
               </button>
 
               {onLogout && (

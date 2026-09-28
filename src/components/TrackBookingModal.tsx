@@ -147,7 +147,7 @@ export default function TrackBookingModal({
                     if (searched) setSearched(false);
                   }}
                   onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                  placeholder="e.g. PC-94821 or (832) 555-4921"
+                  placeholder="e.g. PC-10482 or your contact phone number"
                   className="flex-1 px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs font-medium focus:ring-2 focus:ring-blue-500 outline-none"
                 />
                 <button
@@ -157,9 +157,6 @@ export default function TrackBookingModal({
                   Track
                 </button>
               </div>
-              <p className="text-[11px] text-slate-400 mt-1">
-                Tip: Try demo booking <span className="font-mono text-blue-600 font-bold cursor-pointer" onClick={() => { setQuery('PC-94821'); }}>PC-94821</span>
-              </p>
             </div>
 
             {/* Result view */}

@@ -537,7 +537,7 @@ export default function BookingModal({
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Sarah Jenkins"
+                      placeholder="Your full name"
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
                       className="w-full p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
@@ -551,7 +551,7 @@ export default function BookingModal({
                     <input
                       type="tel"
                       required
-                      placeholder="(555) 000-0000"
+                      placeholder="(973) 609-4520"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="w-full p-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
@@ -1175,7 +1175,7 @@ export default function BookingModal({
                             <label className="block text-[11px] font-bold text-slate-600 mb-1">Billing ZIP</label>
                             <input
                               type="text"
-                              placeholder="77001"
+                              placeholder="98003"
                               maxLength={5}
                               value={cardZip}
                               onChange={(e) => setCardZip(e.target.value.replace(/\D/g, ''))}
@@ -1503,7 +1503,7 @@ export default function BookingModal({
               </div>
               <div className="flex justify-between py-1 border-b border-neutral-800 text-neutral-400">
                 <span>CUSTOMER</span>
-                <span className="text-white">{customerName || 'Sarah Jenkins'}</span>
+                <span className="text-white">{customerName || 'Customer'}</span>
               </div>
               <div className="flex justify-between py-1 text-neutral-400">
                 <span>AMOUNT</span>

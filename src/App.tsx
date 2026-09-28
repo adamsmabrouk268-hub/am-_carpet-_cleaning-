@@ -284,7 +284,7 @@ export default function App() {
             onBookingsChange={handleBookingsChange}
             onExitDashboard={() => setIsFullAdminOpen(false)}
             onLogout={handleAdminLogout}
-            adminEmail="adminProClean@gmail.com"
+            adminEmail="adamsmabrouk268@gmail.com"
           />
         )
       ) : (
@@ -382,7 +382,7 @@ export default function App() {
                   onLaunchFullAdmin={() => setIsFullAdminOpen(true)}
                   onOpenManualBooking={() => setIsManualBookingModalOpen(true)}
                   onLogout={handleAdminLogout}
-                  adminEmail="adminProClean@gmail.com"
+                  adminEmail="adamsmabrouk268@gmail.com"
                 />
               )}
             </StandaloneSectionLayout>
@@ -452,7 +452,7 @@ export default function App() {
                   onLaunchFullAdmin={() => setIsFullAdminOpen(true)}
                   onOpenManualBooking={() => setIsManualBookingModalOpen(true)}
                   onLogout={handleAdminLogout}
-                  adminEmail="adminProClean@gmail.com"
+                  adminEmail="adamsmabrouk268@gmail.com"
                 />
               )}
             </StandaloneSectionLayout>
@@ -489,7 +489,7 @@ export default function App() {
                   onLaunchFullAdmin={() => setIsFullAdminOpen(true)}
                   onOpenManualBooking={() => setIsManualBookingModalOpen(true)}
                   onLogout={handleAdminLogout}
-                  adminEmail="adminProClean@gmail.com"
+                  adminEmail="adamsmabrouk268@gmail.com"
                 />
               ) : (
                 <div className="max-w-3xl mx-auto my-12 p-8 bg-slate-900 border border-slate-800 rounded-3xl text-center text-white shadow-xl">
@@ -500,7 +500,7 @@ export default function App() {
                     Staff Dispatch & Admin Management Console
                   </h3>
                   <p className="text-xs text-slate-400 max-w-md mx-auto mb-5">
-                    Authorized dispatch login required (adminProClean@gmail.com) to view customer appointments, technician routes, and payment statuses.
+                    Authorized dispatch login required (adamsmabrouk268@gmail.com) to view customer appointments, technician routes, and payment statuses.
                   </p>
                   <button
                     onClick={() => handleNavigate('admin')}

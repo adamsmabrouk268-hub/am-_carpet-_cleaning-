@@ -26,7 +26,7 @@ const SAMPLE_PRESETS = [
   {
     label: 'Carpet Pet Odor & Spill',
     title: 'Severe Pet Stain & Odor Truck Mount Extraction',
-    location: 'Dallas, TX',
+    location: 'Federal Way, WA',
     service: 'Deep Steam Carpet Extraction',
     stainType: 'Pet Urine & Ground Soil',
     description: '230°F commercial steam extraction with sub-surface enzyme dwell that removed 3-year set-in stains and neutralized all odor.',
@@ -36,7 +36,7 @@ const SAMPLE_PRESETS = [
   {
     label: 'L-Sectional Couch Refresh',
     title: 'Cream Microfiber Sectional Revival',
-    location: 'Austin, TX',
+    location: 'Bellevue, WA',
     service: 'Upholstery Restorative Shampoo',
     stainType: 'Body Oils, Food & Coffee',
     description: 'pH-balanced delicate microfiber foam agitation and low-moisture restorative rinse that restored plush texture and vibrant color.',
@@ -46,7 +46,7 @@ const SAMPLE_PRESETS = [
   {
     label: 'Persian Area Rug Bath',
     title: 'Antique Wool & Silk Rug Restoration',
-    location: 'Miami, FL',
+    location: 'Everett, WA',
     service: 'Area Rug Precision Bath',
     stainType: 'Wine Spills & Dirt Traffic',
     description: 'Flat-bed organic botanic bath and gentle fringe brightening, preserving delicate plant-dyed wool fibers without bleeding.',
@@ -129,7 +129,7 @@ export default function AdminGalleryManager() {
       return;
     }
     if (!location.trim()) {
-      setFormError('Please enter the project location (e.g., Dallas, TX).');
+      setFormError('Please enter the project location (e.g., Federal Way, WA).');
       return;
     }
     if (!beforeImg.trim()) {
@@ -401,7 +401,7 @@ export default function AdminGalleryManager() {
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    placeholder="e.g. Dallas, TX or Orlando, FL"
+                    placeholder="e.g. Federal Way, WA or Bellevue, WA"
                     className="w-full p-2.5 border border-slate-300 rounded-xl text-xs focus:ring-2 focus:ring-blue-600 outline-none"
                     required
                   />

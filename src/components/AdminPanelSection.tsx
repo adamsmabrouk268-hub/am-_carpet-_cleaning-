@@ -22,12 +22,13 @@ import {
   KeyRound,
   DollarSign,
   Tag,
-  Bell
+  Bell,
+  Trash2
 } from 'lucide-react';
 import { Booking, BookingStatus } from '../types';
 import {
   exportBookingsToCSV,
-  resetDemoBookings,
+  clearAllBookings,
   updateBookingStatus,
   getStoredBookings,
   acceptBooking,
@@ -53,7 +54,7 @@ export default function AdminPanelSection({
   onLaunchFullAdmin,
   onOpenManualBooking,
   onLogout,
-  adminEmail = 'adminProClean@gmail.com'
+  adminEmail = 'adamsmabrouk268@gmail.com'
 }: AdminPanelSectionProps) {
   const [activeSectionTab, setActiveSectionTab] = useState<'new-bookings' | 'calendar' | 'stream' | 'pricing'>('new-bookings');
   const [reviewedIds, setReviewedIds] = useState<string[]>(() => getReviewedBookingIds());
@@ -100,11 +101,11 @@ export default function AdminPanelSection({
     onBookingsChange(updated);
   };
 
-  // Handle reset
-  const handleReset = () => {
-    if (confirm('Reset demo bookings to default state?')) {
-      const reset = resetDemoBookings();
-      onBookingsChange(reset);
+  // Handle clear
+  const handleClearAll = () => {
+    if (confirm('Clear all stored appointments? This action cannot be undone.')) {
+      clearAllBookings();
+      onBookingsChange([]);
     }
   };
 
@@ -174,11 +175,11 @@ export default function AdminPanelSection({
             </button>
 
             <button
-              onClick={handleReset}
-              className="bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-700 p-2.5 rounded-xl text-xs transition cursor-pointer"
-              title="Reset demo data"
+              onClick={handleClearAll}
+              className="bg-slate-800 hover:bg-rose-950/80 text-slate-400 hover:text-rose-300 border border-slate-700 p-2.5 rounded-xl text-xs transition cursor-pointer"
+              title="Clear all appointments"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <Trash2 className="w-3.5 h-3.5" />
             </button>
 
             {onLogout && (

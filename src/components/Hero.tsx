@@ -112,9 +112,9 @@ export default function Hero({ onOpenBooking }: HeroProps) {
               </div>
               <div>
                 <div className="flex items-center text-amber-400 font-bold text-sm">
-                  ★★★★★ <span className="text-slate-800 ml-1.5 font-bold">4.9 / 5</span>
+                  ★★★★★ <span className="text-slate-800 ml-1.5 font-bold">5-Star Quality</span>
                 </div>
-                <span className="text-slate-500">Over 3,800+ homes & couches cleaned</span>
+                <span className="text-slate-500">Serving Federal Way, Bellevue, Everett, Renton, Kent & Redmond, WA</span>
               </div>
             </div>
           </div>
