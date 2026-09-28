@@ -1,4 +1,4 @@
-import { useState, useMemo, MouseEvent } from 'react';
+import { useState, useMemo, useEffect, MouseEvent } from 'react';
 import {
   Calendar,
   Clock,
@@ -31,7 +31,9 @@ import {
   MapPin as MapPinIcon,
   Check,
   Ban,
-  ShieldAlert
+  ShieldAlert,
+  Bell,
+  BellRing
 } from 'lucide-react';
 import { Booking, BookingStatus } from '../types';
 import {
@@ -41,6 +43,7 @@ import {
   acceptBooking,
   denyBooking
 } from '../utils/bookingStorage';
+import { getUnreviewedCount, getReviewedBookingIds } from '../utils/notificationService';
 import JobDetailsModal from './JobDetailsModal';
 import ManualBookingModal from './ManualBookingModal';
 import PaymentReceiptModal from './PaymentReceiptModal';
@@ -50,6 +53,7 @@ import AdminGalleryManager from './AdminGalleryManager';
 import AdminServicesManager from './AdminServicesManager';
 import AdminStatesManager from './AdminStatesManager';
 import DenyBookingModal from './DenyBookingModal';
+import AdminNewBookingsSection from './AdminNewBookingsSection';
 
 interface AdminDashboardProps {
   bookings: Booking[];
@@ -67,8 +71,20 @@ export default function AdminDashboard({
   adminEmail = 'adminProClean@gmail.com'
 }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<
-    'calendar' | 'appointments' | 'customers' | 'schedule' | 'gallery' | 'services' | 'states' | 'security'
+    'calendar' | 'new-bookings' | 'appointments' | 'customers' | 'schedule' | 'gallery' | 'services' | 'states' | 'security'
   >('calendar');
+  const [reviewedIds, setReviewedIds] = useState<string[]>(() => getReviewedBookingIds());
+
+  useEffect(() => {
+    const handleSync = () => setReviewedIds(getReviewedBookingIds());
+    window.addEventListener('am_reviewed_updated', handleSync);
+    return () => window.removeEventListener('am_reviewed_updated', handleSync);
+  }, []);
+
+  const unreviewedCount = useMemo(() => {
+    const reviewedSet = new Set(reviewedIds);
+    return bookings.filter((b) => !reviewedSet.has(b.id)).length;
+  }, [bookings, reviewedIds]);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<'all' | 'today' | 'tomorrow' | 'week'>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -301,6 +317,24 @@ export default function AdminDashboard({
             {/* Action buttons */}
             <div className="flex flex-wrap items-center gap-2">
               <button
+                onClick={() => setActiveTab('new-bookings')}
+                className={`px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border ${
+                  activeTab === 'new-bookings'
+                    ? 'bg-amber-500 text-slate-950 border-amber-600 shadow-xs'
+                    : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-300'
+                }`}
+                title="View incoming customer bookings & notifications"
+              >
+                <BellRing className={`w-3.5 h-3.5 ${unreviewedCount > 0 ? 'text-amber-700 animate-bounce' : 'text-amber-600'}`} />
+                <span>New Bookings</span>
+                {unreviewedCount > 0 && (
+                  <span className="bg-rose-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full animate-pulse shadow-xs">
+                    {unreviewedCount}
+                  </span>
+                )}
+              </button>
+
+              <button
                 onClick={() => setIsPasswordModalOpen(true)}
                 className="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
                 title="Change Admin Password"
@@ -370,6 +404,23 @@ export default function AdminDashboard({
 
           {/* Sub-tabs */}
           <div className="flex items-center gap-6 mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-slate-500 overflow-x-auto">
+            <button
+              onClick={() => setActiveTab('new-bookings')}
+              className={`pb-2 border-b-2 transition flex items-center gap-1.5 cursor-pointer shrink-0 ${
+                activeTab === 'new-bookings'
+                  ? 'text-amber-600 border-amber-600 font-extrabold'
+                  : 'border-transparent hover:text-slate-900'
+              }`}
+            >
+              <Bell className="w-4 h-4 text-amber-500" />
+              <span>New Bookings 🔔</span>
+              {unreviewedCount > 0 && (
+                <span className="bg-rose-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full animate-pulse shadow-xs">
+                  {unreviewedCount} NEW
+                </span>
+              )}
+            </button>
+
             <button
               onClick={() => setActiveTab('calendar')}
               className={`pb-2 border-b-2 transition flex items-center gap-1.5 cursor-pointer shrink-0 ${
@@ -520,6 +571,16 @@ export default function AdminDashboard({
             <p className="text-[11px] text-slate-500 mt-1">100% 5-Star satisfaction rate</p>
           </div>
         </div>
+
+        {/* TAB: NEW BOOKINGS & LIVE NOTIFICATIONS */}
+        {activeTab === 'new-bookings' && (
+          <AdminNewBookingsSection
+            bookings={bookings}
+            onBookingsChange={onBookingsChange}
+            onOpenManualBooking={() => setIsManualModalOpen(true)}
+            theme="light"
+          />
+        )}
 
         {/* TAB 0: DISPATCH CALENDAR & APPOINTMENT MANAGEMENT */}
         {activeTab === 'calendar' && (

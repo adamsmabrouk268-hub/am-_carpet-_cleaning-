@@ -227,8 +227,14 @@ export default function Footer({ onOpenBooking, onOpenTrack, onOpenAdmin, onNavi
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-800 text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>&copy; {new Date().getFullYear()} A&M Carpet Cleaning & Painting. All rights reserved.</p>
+        <div className="pt-8 border-t border-slate-800 text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+            <p>&copy; {new Date().getFullYear()} A&M Carpet Cleaning & Painting. All rights reserved.</p>
+            <span className="hidden sm:inline text-slate-700">•</span>
+            <p className="text-slate-400 font-medium">
+              Created by <span className="text-blue-400 font-bold tracking-wide">AJSDCL</span>
+            </p>
+          </div>
           <div className="flex gap-6">
             <span className="hover:text-slate-300">Privacy Policy</span>
             <span className="hover:text-slate-300">Terms of Service</span>

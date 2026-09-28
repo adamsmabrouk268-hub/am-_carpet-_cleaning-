@@ -17,8 +17,10 @@ import BookingModal from './components/BookingModal';
 import TrackBookingModal from './components/TrackBookingModal';
 import ManualBookingModal from './components/ManualBookingModal';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
+import LiveBookingNotificationToast from './components/LiveBookingNotificationToast';
 import { Booking, BookedServiceItem, BookedAddOn, ServiceItem, AppView } from './types';
 import { getStoredBookings, saveStoredBookings } from './utils/bookingStorage';
+import { NEW_BOOKING_EVENT_NAME } from './utils/notificationService';
 import AdminLogin from './components/AdminLogin';
 import { Shield } from 'lucide-react';
 
@@ -144,6 +146,44 @@ export default function App() {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  // Listen to live new bookings & storage updates in real time
+  useEffect(() => {
+    const handleIncomingNewBooking = (e: Event) => {
+      const customEvent = e as CustomEvent<Booking>;
+      if (customEvent.detail) {
+        const newBooking = customEvent.detail;
+        setBookings((prev) => {
+          if (prev.some((b) => b.id === newBooking.id)) return prev;
+          return [newBooking, ...prev];
+        });
+      }
+    };
+
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'proclean_bookings_data_v2' || e.key === 'am_booking_notification_sync') {
+        const updated = getStoredBookings();
+        setBookings(updated);
+      }
+    };
+
+    window.addEventListener(NEW_BOOKING_EVENT_NAME, handleIncomingNewBooking);
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener(NEW_BOOKING_EVENT_NAME, handleIncomingNewBooking);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  const handleOpenAdminToBooking = (_bookingId?: string) => {
+    const latest = getStoredBookings();
+    setBookings(latest);
+    setIsFullAdminOpen(true);
+    setCurrentView('admin');
+    window.location.hash = '#admin';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Save changes to storage whenever bookings state updates
   const handleBookingsChange = (updated: Booking[]) => {
@@ -530,6 +570,9 @@ export default function App() {
           setIsManualBookingModalOpen(false);
         }}
       />
+
+      {/* Real-time Floating Live Booking Alert Toaster */}
+      <LiveBookingNotificationToast onOpenAdminToBooking={handleOpenAdminToBooking} />
     </div>
   );
 }

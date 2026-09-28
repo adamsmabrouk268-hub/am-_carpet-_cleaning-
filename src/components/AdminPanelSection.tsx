@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   Shield,
   LayoutDashboard,
@@ -21,7 +21,8 @@ import {
   Ban,
   KeyRound,
   DollarSign,
-  Tag
+  Tag,
+  Bell
 } from 'lucide-react';
 import { Booking, BookingStatus } from '../types';
 import {
@@ -32,8 +33,10 @@ import {
   acceptBooking,
   denyBooking
 } from '../utils/bookingStorage';
+import { getUnreviewedCount, getReviewedBookingIds } from '../utils/notificationService';
 import { AppointmentManagement } from './AppointmentManagement';
 import AdminServicesManager from './AdminServicesManager';
+import AdminNewBookingsSection from './AdminNewBookingsSection';
 
 interface AdminPanelSectionProps {
   bookings: Booking[];
@@ -52,7 +55,20 @@ export default function AdminPanelSection({
   onLogout,
   adminEmail = 'adminProClean@gmail.com'
 }: AdminPanelSectionProps) {
-  const [activeSectionTab, setActiveSectionTab] = useState<'calendar' | 'stream' | 'pricing'>('calendar');
+  const [activeSectionTab, setActiveSectionTab] = useState<'new-bookings' | 'calendar' | 'stream' | 'pricing'>('new-bookings');
+  const [reviewedIds, setReviewedIds] = useState<string[]>(() => getReviewedBookingIds());
+
+  useEffect(() => {
+    const handleSync = () => setReviewedIds(getReviewedBookingIds());
+    window.addEventListener('am_reviewed_updated', handleSync);
+    return () => window.removeEventListener('am_reviewed_updated', handleSync);
+  }, []);
+
+  const unreviewedCount = useMemo(() => {
+    const reviewedSet = new Set(reviewedIds);
+    return bookings.filter((b) => !reviewedSet.has(b.id)).length;
+  }, [bookings, reviewedIds]);
+
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // Quick stats
@@ -220,6 +236,23 @@ export default function AdminPanelSection({
         {/* Sub-tab Navigation */}
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6">
           <button
+            onClick={() => setActiveSectionTab('new-bookings')}
+            className={`px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer ${
+              activeSectionTab === 'new-bookings'
+                ? 'bg-amber-600 text-white shadow-lg ring-2 ring-amber-400/30'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+            }`}
+          >
+            <Bell className="w-4 h-4 text-amber-300" />
+            <span>New Bookings & Alerts 🔔</span>
+            {unreviewedCount > 0 && (
+              <span className="bg-rose-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full animate-pulse shadow-xs">
+                {unreviewedCount} NEW
+              </span>
+            )}
+          </button>
+
+          <button
             onClick={() => setActiveSectionTab('calendar')}
             className={`px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center gap-2 cursor-pointer ${
               activeSectionTab === 'calendar'
@@ -255,6 +288,18 @@ export default function AdminPanelSection({
             <span>Edit Service Prices & Rates 💵</span>
           </button>
         </div>
+
+        {/* TAB 0: NEW BOOKINGS & ALERTS */}
+        {activeSectionTab === 'new-bookings' && (
+          <div className="bg-slate-900/90 rounded-3xl p-1 text-slate-100">
+            <AdminNewBookingsSection
+              bookings={bookings}
+              onBookingsChange={onBookingsChange}
+              onOpenManualBooking={onOpenManualBooking}
+              theme="dark"
+            />
+          </div>
+        )}
 
         {/* TAB 1: CALENDAR VIEW */}
         {activeSectionTab === 'calendar' && (

@@ -1,5 +1,6 @@
 import { Booking, BookingStatus, AppointmentNote, PaymentRecord } from '../types';
 import { INITIAL_BOOKINGS } from '../data/initialData';
+import { notifyNewBooking } from './notificationService';
 
 const STORAGE_KEY = 'proclean_bookings_data_v2';
 
@@ -47,6 +48,7 @@ export function addBooking(newBookingData: Omit<Booking, 'id' | 'createdAt'>): B
   };
   const updated = [newBooking, ...current];
   saveStoredBookings(updated);
+  notifyNewBooking(newBooking);
   return newBooking;
 }
 
