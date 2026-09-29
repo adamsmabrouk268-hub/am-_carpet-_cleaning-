@@ -38,6 +38,7 @@ import { getUnreviewedCount, getReviewedBookingIds } from '../utils/notification
 import { AppointmentManagement } from './AppointmentManagement';
 import AdminServicesManager from './AdminServicesManager';
 import AdminNewBookingsSection from './AdminNewBookingsSection';
+import GooglePlayBillingAlert from './GooglePlayBillingAlert';
 
 interface AdminPanelSectionProps {
   bookings: Booking[];
@@ -145,6 +146,18 @@ export default function AdminPanelSection({
             </button>
 
             <button
+              onClick={() => {
+                const el = document.getElementById('google-play-billing-alert-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }}
+              className="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/50 px-3 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-xs"
+              title="Google Play Console Monthly Subscription Moved: Set Billings to Access Customer"
+            >
+              <span className="text-sm">⚠️</span>
+              <span>Play Billing Alert</span>
+            </button>
+
+            <button
               onClick={() => setActiveSectionTab('pricing')}
               className={`border px-3.5 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-1.5 cursor-pointer ${
                 activeSectionTab === 'pricing'
@@ -193,6 +206,11 @@ export default function AdminPanelSection({
               </button>
             )}
           </div>
+        </div>
+
+        {/* Google Play Console Monthly Subscription Billing Alert Banner */}
+        <div id="google-play-billing-alert-section" className="mb-8">
+          <GooglePlayBillingAlert theme="dark" adminEmail={adminEmail} />
         </div>
 
         {/* Real-time KPI Stats Bar */}

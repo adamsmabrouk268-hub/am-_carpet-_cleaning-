@@ -55,6 +55,7 @@ import AdminServicesManager from './AdminServicesManager';
 import AdminStatesManager from './AdminStatesManager';
 import DenyBookingModal from './DenyBookingModal';
 import AdminNewBookingsSection from './AdminNewBookingsSection';
+import GooglePlayBillingAlert from './GooglePlayBillingAlert';
 
 interface AdminDashboardProps {
   bookings: Booking[];
@@ -336,6 +337,20 @@ export default function AdminDashboard({
               </button>
 
               <button
+                onClick={() => {
+                  const el = document.getElementById('google-play-billing-alert');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }
+                }}
+                className="bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-400 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                title="Google Play Console Billing Alert: Monthly Subscription Moved"
+              >
+                <span className="text-sm">⚠️</span>
+                <span>Play Billing Alert</span>
+              </button>
+
+              <button
                 onClick={() => setIsPasswordModalOpen(true)}
                 className="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
                 title="Change Admin Password"
@@ -522,6 +537,11 @@ export default function AdminDashboard({
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        {/* Google Play Console Monthly Subscription Billing Alert Banner */}
+        <div id="google-play-billing-alert" className="mb-6">
+          <GooglePlayBillingAlert theme="light" adminEmail={adminEmail} />
+        </div>
+
         {/* KPI Metrics Summary Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
@@ -847,6 +867,30 @@ export default function AdminDashboard({
         {/* TAB 2: CUSTOMER DIRECTORY (CRM) */}
         {activeTab === 'customers' && (
           <div className="space-y-4">
+            {/* Google Play Console Customer Access Notice */}
+            <div className="bg-amber-50 border border-amber-300 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-amber-950 shadow-2xs">
+              <div className="flex items-start gap-2.5">
+                <span className="text-lg shrink-0">⚠️</span>
+                <div>
+                  <span className="font-extrabold block text-amber-900">
+                    Google Play Console Monthly Subscription Moved: Set Billings to Access Customer
+                  </span>
+                  <p className="text-amber-800 text-[11px] mt-0.5">
+                    Customer subscription accounts and renewal management require configured billings in Google Play Console under Monetize &gt; Subscriptions.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('google-play-billing-alert');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-1.5 rounded-xl text-xs transition cursor-pointer shrink-0 self-start sm:self-center shadow-xs"
+              >
+                Configure Billings
+              </button>
+            </div>
+
             <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-2xs flex justify-between items-center">
               <div>
                 <h3 className="font-bold text-slate-900 text-sm">Customer Database & Booking History</h3>
